@@ -1,0 +1,24 @@
+# Remove Port numbers while testng K8s deployments
+### Fetch Current User
+GET http://localhost:3000/api/users/currentuser
+
+### Sign Up
+POST http://localhost:3000/api/users/signup
+Content-Type: application/json
+
+{
+  "email": "singh.gagandeep3911@gmail.com",
+  "password": "123456"
+}
+
+### Sing In
+POST http://localhost:3000/api/users/signin
+Content-Type: application/json
+
+{
+  "email": "singh.gagandeep3911@gmail.com",
+  "password": "123456"
+}
+
+### Sign Out
+POST http://localhost:3000/api/users/signout
