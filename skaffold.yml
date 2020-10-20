@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+# Do not push to dockerhub whenever an image is built
+build:
+  local:
+    push: false
+  artifacts:
+    - image: gagandeep39/ticket-booking-auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
