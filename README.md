@@ -16,6 +16,7 @@
     - [Client](#client)
     - [Event Bus](#event-bus)
   - [Events](#events)
+  - [Guide to creating typescript apps](#guide-to-creating-typescript-apps)
 
 ## Features
 
@@ -120,3 +121,16 @@
   - Ticket Cancelled
 - Charge
   - Charge Created
+
+## Guide to creating typescript apps
+
+- Add the dependencies `@types/express` `express` `ts-node-dev` `typescript`
+- Run `tsc --init`
+- Add script in `package.json`
+```json
+"scripts": {
+  "start": "ts-node-dev src/index.ts"
+},
+```
+- Some dependecies may give error while importng, simple add `@types/<dependecy>` if there is any
+  - This error is because normal libraries do not specify types which is required by typescript
