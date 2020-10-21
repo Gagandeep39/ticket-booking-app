@@ -28,7 +28,7 @@ router.post(
           .save()
           .then((newUser) => {
             // Generate JWT
-            if(!process.env.JWT_KEY) throw Error('JWT Secret key Not found');
+            if(!process.env.JWT_KEY) throw new Error('JWT Secret key Not found');
             const userJwt = jwt.sign(
               {
                 id: newUser.id,
