@@ -12,6 +12,7 @@ import { currentUserRouter } from './routes/current-user';
 import { signInRouter } from './routes/sign-in';
 import { signUpRouter } from './routes/sign-up';
 import { signOutRouter } from './routes/sign-out';
+import { errorHandler } from './middlewares/error-handler';
 
 const app = express();
 
@@ -22,6 +23,8 @@ app.use(currentUserRouter);
 app.use(signInRouter);
 app.use(signUpRouter);
 app.use(signOutRouter);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Auth service started on port ${PORT}`));
