@@ -3,6 +3,7 @@
 - [Auth Service](#auth-service)
   - [Description](#description)
   - [Routes](#routes)
+  - [Libraries Used](#libraries-used)
 
 ## Description
 
@@ -17,3 +18,11 @@
 | `/api/users/signin`      | POST   | `{email: String, password: String}` | Sign in to existing account |
 | `/api/users/signout`     | POST   | `{} `                               | Sign out                    |
 | `/api/users/currentuser` | GET    | `-`                                 | Return info about user      |
+
+## Libraries Used
+
+- `typescript` - Add ts support
+- `ts-node-dev` - Run ts files directly
+- `morgan`, `@types/morgan` - Logging library
+- `express`, `@types/express` - REST API server
+- `express-validator` - Data Validations
