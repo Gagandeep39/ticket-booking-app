@@ -8,6 +8,8 @@ deploy:
 build:
   local:
     push: false
+  # googleCloudBuild:
+  #   projectId: <Found in Project details in google cloud>
   artifacts:
     - image: gagandeep39/ticket-booking-auth
       context: auth
