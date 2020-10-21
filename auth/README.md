@@ -15,6 +15,7 @@
     - [Cookies](#cookies)
     - [JWT](#jwt)
   - [Important Considerations](#important-considerations)
+  - [Current User](#current-user)
 
 ## Description
 
@@ -98,3 +99,10 @@
 - Must habe builtin methods to handle token expiry and refreshing
 - Must be asly understood by other languages
 - Must not require backing data store
+
+## Current User
+
+- Checks if a user is logged in
+- If `req.session.jwt` is set then user in logged In
+- If set then data inside jwt is sent
+- Ig not set then null response
