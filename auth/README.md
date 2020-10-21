@@ -40,6 +40,7 @@
 - `express-async-errors` Async Error Handling
 - `mongoose`,` @types/mongoose` Data persistencen management library
 - `cookie-session`, `@types/cookie-session` To manage cookies on server side
+- `jsonwebtoken`, `@types/jsonwebtoken` Generate and verify token
 
 ## Errors
 
