@@ -5,9 +5,10 @@
  * @modify date 2020-10-21 13:58:32
  * @desc Database error model
  */
-import { ValidationError } from 'express-validator';
 export class DatabaseConnectionError extends Error {
-  constructor(private errors: ValidationError[]) {
+  reason = 'Error connecting to database';
+
+  constructor() {
     super();
 
     Object.setPrototypeOf(this, DatabaseConnectionError.prototype);
