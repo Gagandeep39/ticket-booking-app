@@ -6,6 +6,7 @@
  * @desc Manage Registration routes
  */
 import express, { NextFunction, Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
 import { BadRequestError } from '../errors/bad-request-error';
 import { RequestValidationError } from '../errors/request-validation-error';
@@ -28,7 +29,23 @@ router.post(
 
         User.build({ email, password })
           .save()
-          .then((newUser) => res.status(201).send(newUser))
+          .then((newUser) => {
+            // Generate JWT
+            const userJwt = jwt.sign(
+              {
+                id: newUser.id,
+                email: newUser.email,
+              },
+              'lonely'
+            );
+            // Store it in session Object
+            // req.session.jwt = userJwt; // Gives error in TS
+            req.session = {
+              jwt: userJwt,
+            };
+
+            return res.status(201).send(newUser);
+          })
           .catch((error) => next(error));
       })
       .catch((error) => next(error));
