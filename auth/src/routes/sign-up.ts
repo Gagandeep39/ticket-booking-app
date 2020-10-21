@@ -7,20 +7,17 @@
  */
 import express, { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { validationResult } from 'express-validator';
 import { BadRequestError } from '../errors/bad-request-error';
-import { RequestValidationError } from '../errors/request-validation-error';
 import { User } from '../models/user';
 import { signUpValidator } from '../validators/sign-up';
+import { validateRequest } from '../middlewares/validate-request';
 const router = express.Router();
 
 router.post(
   '/api/users/signup',
   signUpValidator,
+  validateRequest,
   (req: Request, res: Response, next: NextFunction): any => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) throw new RequestValidationError(errors.array());
-
     const { email, password } = req.body;
     User
       .findOne({ email })
