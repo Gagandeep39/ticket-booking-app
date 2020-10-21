@@ -19,6 +19,9 @@ spec:
             limits:
               memory: '200Mi'
               cpu: '350m'
+          env:
+            - name: MONGO_URI
+              value: mongodb://auth-mongo-srv:27017/auth
 
 ---
 apiVersion: v1
