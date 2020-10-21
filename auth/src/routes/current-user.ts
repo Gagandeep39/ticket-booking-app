@@ -10,7 +10,7 @@ import jwt from 'jsonwebtoken';
 const router = express.Router();
 
 router.get('/api/users/currentuser', (req, res, next) => {
-  if (!req.session || !req.session.jwt) return res.send({ currentUser: null });
+  if (!req.session?.jwt) return res.send({ currentUser: null });
   if (!process.env.JWT_KEY) throw new Error('JWT Secret key Not found');
 
   try {
