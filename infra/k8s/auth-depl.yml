@@ -17,8 +17,8 @@ spec:
           image: gagandeep39/ticket-booking-auth
           resources:
             limits:
-              memory: '128Mi'
-              cpu: '250m'
+              memory: '200Mi'
+              cpu: '300m'
 
 ---
 apiVersion: v1
