@@ -9,6 +9,7 @@
     - [Charges](#charges)
   - [Microservices](#microservices)
     - [Auth Service](#auth-service)
+    - [Auth Service Docs](#auth-service-docs)
     - [Tickets Service](#tickets-service)
     - [Orders Servce](#orders-servce)
     - [Expiration](#expiration)
@@ -83,6 +84,8 @@
 | `/api/users/signin`      | POST   | `{email: String, password: String}` | Sign in to existing account |
 | `/api/users/signout`     | POST   | `{} `                               | Sign out                    |
 | `/api/users/currentuser` | GET    | `-`                                 | Return info about user      |
+
+### [Auth Service Docs](auth/README.md)
 
 ### Tickets Service
 
