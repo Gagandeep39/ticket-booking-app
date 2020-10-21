@@ -12,7 +12,6 @@ import { BadRequestError } from '../errors/bad-request-error';
 import { RequestValidationError } from '../errors/request-validation-error';
 import { User } from '../models/user';
 import { signUpValidator } from '../validators/sign-up';
-const jwtSecret = process.env.JWT_KEY || '';
 const router = express.Router();
 
 router.post(
@@ -32,12 +31,13 @@ router.post(
           .save()
           .then((newUser) => {
             // Generate JWT
+            if(!process.env.JWT_KEY) throw Error('JWT Secret key Not found');
             const userJwt = jwt.sign(
               {
                 id: newUser.id,
                 email: newUser.email,
               },
-              jwtSecret
+              process.env.JWT_KEY
             );
             // Store it in session Object
             // req.session.jwt = userJwt; // Gives error in TS
