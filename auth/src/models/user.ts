@@ -13,6 +13,11 @@ interface UserAttrs {
   password: String;
 }
 
+// Adding additional features to default mongoose class
+interface UserModel extends mongoose.Model<any> {
+  build(attrs: UserAttrs): any;
+}
+
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -24,9 +29,13 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model('User', userSchema);
+// Adding a 'build' function to userSchema
+// Can be accessed using User.build({})
+userSchema.statics.build = (attrs: UserAttrs) => new User(attrs);
+
+const User = mongoose.model<any, UserModel>('User', userSchema);
 
 // Not good apprach as we have to separately export/iimport while using
-const buildUser = (attrs: UserAttrs) => new User(attrs);
+// const buildUser = (attrs: UserAttrs) => new User(attrs);
 
-export { User, buildUser };
+export { User };
