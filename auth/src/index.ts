@@ -8,14 +8,20 @@
 import express from 'express';
 import { json } from 'body-parser';
 import morgan from 'morgan';
-import { fetchCurrentUser } from './service/auth';
+import { currentUserRouter } from './routes/current-user';
+import { signInRouter } from './routes/sign-in';
+import { signUpRouter } from './routes/sign-up';
+import { signOutRouter } from './routes/sign-out';
 
 const app = express();
 
 app.use(json());
 app.use(morgan('short'));
 
-app.get('/api/users/currentuser', fetchCurrentUser);
+app.use(currentUserRouter);
+app.use(signInRouter);
+app.use(signUpRouter);
+app.use(signOutRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Auth service started on port ${PORT}`));
