@@ -10,6 +10,7 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import cookieSession from 'cookie-session';
 
 import { currentUserRouter } from './routes/current-user';
 import { signInRouter } from './routes/sign-in';
@@ -24,8 +25,15 @@ const app = express();
 dotenv.config();
 connectDB();
 
+// app.set('trust-proxy', true); // Used for https
 app.use(json());
 app.use(morgan('short'));
+app.use(
+  cookieSession({
+    signed: false,
+    // secure: true // Used for https
+  })
+);
 
 app.use(currentUserRouter);
 app.use(signInRouter);
