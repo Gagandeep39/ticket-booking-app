@@ -1,9 +1,9 @@
 # Remove Port numbers while testng K8s deployments
 ### Fetch Current User
-GET http://localhost:3000/api/users/currentuser
+GET http://localhost/api/users/currentuser
 
 ### Sign Up
-POST http://localhost:3000/api/users/signup
+POST http://localhost/api/users/signup
 Content-Type: application/json
 
 {
@@ -12,7 +12,7 @@ Content-Type: application/json
 }
 
 ### Sing In
-POST http://localhost:3000/api/users/signin
+POST http://localhost/api/users/signin
 Content-Type: application/json
 
 {
@@ -21,4 +21,4 @@ Content-Type: application/json
 }
 
 ### Sign Out
-POST http://localhost:3000/api/users/signout
+POST http://localhost/api/users/signout
