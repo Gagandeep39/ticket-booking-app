@@ -20,6 +20,7 @@
   - [Setup Google cloud development environment](#setup-google-cloud-development-environment)
     - [Steps to Run](#steps-to-run)
     - [Using Skaffold with Google Cloud](#using-skaffold-with-google-cloud)
+  - [Considerations](#considerations)
   - [Note](#note)
 
 ## Features
@@ -182,6 +183,14 @@
    2. A load balancer will be present whci was created in Step 3
    3. Fetch the oad bancer IP and Map it with host name in PC in System32 dicrectory
 5. Restart skaffold
+
+## Considerations
+
+- Error handling should be consistent throughout all microservices
+- Always Create amiddleware to handle error
+- Avoid hadling error in between code (Simple throw error)
+- A common error handler must be used to catch all these errors
+- Create error objects by extending inbuilt error class
 
 ## Note
 

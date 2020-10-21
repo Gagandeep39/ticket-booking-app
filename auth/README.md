@@ -4,6 +4,8 @@
   - [Description](#description)
   - [Routes](#routes)
   - [Libraries Used](#libraries-used)
+  - [Errors](#errors)
+    - [Support for Async Error  handlers](#support-for-async-error-handlers)
 
 ## Description
 
@@ -21,8 +23,18 @@
 
 ## Libraries Used
 
-- `typescript` - Add ts support
-- `ts-node-dev` - Run ts files directly
-- `morgan`, `@types/morgan` - Logging library
-- `express`, `@types/express` - REST API server
-- `express-validator` - Data Validations
+- `typescript` Add ts support
+- `ts-node-dev` Run ts files directly
+- `morgan`, `@types/morgan` Logging library
+- `express`, `@types/express` REST API server
+- `express-validator` Data Validations
+- `express-async-errors` Async Error Handling
+
+## Errors
+
+- `DatabaseConnectionError` Error raised when db connection fails
+- `RequestValidationError` Invalid Data
+- `NotFoundError` - Invalid route
+
+### Support for Async Error  handlers
+- Simple install `express-async-errors` and import
