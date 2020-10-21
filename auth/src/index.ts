@@ -6,6 +6,7 @@
  * @desc Auth microservice
  */
 import express from 'express';
+import 'express-async-errors';
 import { json } from 'body-parser';
 import morgan from 'morgan';
 import { currentUserRouter } from './routes/current-user';
@@ -25,7 +26,7 @@ app.use(signInRouter);
 app.use(signUpRouter);
 app.use(signOutRouter);
 
-app.all('*', () => {
+app.all('*', async () => {
   throw new NotFoundError();
 });
 app.use(errorHandler);
