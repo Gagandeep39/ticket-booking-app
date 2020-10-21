@@ -6,7 +6,8 @@
  * @desc ValidationError Object - Express validators error will be thrown as  throw new RequestValidationError(errors)
  */
 import { ValidationError } from 'express-validator';
-export class RequestValidationError extends Error {
+import { CustomError } from './custom-error';
+export class RequestValidationError extends CustomError {
   statusCode = 400;
   constructor(public errors: ValidationError[]) {
     super();
