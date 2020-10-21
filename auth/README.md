@@ -8,6 +8,13 @@
   - [Data persistence](#data-persistence)
     - [Support for Async Error  handlers](#support-for-async-error-handlers)
   - [Sign Up Flow](#sign-up-flow)
+  - [Performing User Authentication](#performing-user-authentication)
+    - [Method 1](#method-1)
+  - [Method 2](#method-2)
+  - [Cookies vs JWT](#cookies-vs-jwt)
+    - [Cookies](#cookies)
+    - [JWT](#jwt)
+  - [Important Considerations](#important-considerations)
 
 ## Description
 
@@ -31,7 +38,8 @@
 - `express`, `@types/express` REST API server
 - `express-validator` Data Validations
 - `express-async-errors` Async Error Handling
-- `mongoose, @types/mongoose` Data persistencen management library
+- `mongoose`,` @types/mongoose` Data persistencen management library
+- `cookie-session`, `@types/cookie-session` To manage cookies on server side
 
 ## Errors
 
@@ -55,3 +63,37 @@
 4. Store password in encypted format
 5. Create a new user and store in DB
 6. Respond with JWT
+
+## Performing User Authentication
+
+### Method 1
+
+- All servvices send a request to auth-service to verify authenticity
+- **Problem** If auth service fails eerything fails
+
+## Method 2
+
+- Store logic to validate user in individual service
+- **Probilem** - If a user gets banned but still has an auth token, hell still be able to perform operation
+- However this udea promotes independent services
+
+## Cookies vs JWT
+
+### Cookies
+
+- Form of transport mechanish
+- Movies any kind of data between server and browser
+- Automatically managed by browser
+
+### JWT
+
+- Store any data we want
+- Primarily used for authentication
+- Must be manually managed
+
+## Important Considerations
+
+- Authentication mmechanism must be abl to provide user information
+- Must habe builtin methods to handle token expiry and refreshing
+- Must be asly understood by other languages
+- Must not require backing data store
