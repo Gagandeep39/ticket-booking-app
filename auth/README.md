@@ -5,7 +5,9 @@
   - [Routes](#routes)
   - [Libraries Used](#libraries-used)
   - [Errors](#errors)
+  - [Data persistence](#data-persistence)
     - [Support for Async Error  handlers](#support-for-async-error-handlers)
+  - [Sign Up Flow](#sign-up-flow)
 
 ## Description
 
@@ -29,6 +31,7 @@
 - `express`, `@types/express` REST API server
 - `express-validator` Data Validations
 - `express-async-errors` Async Error Handling
+- `mongoose, @types/mongoose` Data persistencen management library
 
 ## Errors
 
@@ -36,5 +39,19 @@
 - `RequestValidationError` Invalid Data
 - `NotFoundError` - Invalid route
 
+## Data persistence
+
+- Auth service will have its own MongoDB instance
+- One DB per pservice concept
+
 ### Support for Async Error  handlers
 - Simple install `express-async-errors` and import
+
+## Sign Up Flow
+
+1. Recieve username, password from client
+2. Perform alidation
+3. Chec if user exists
+4. Store password in encypted format
+5. Create a new user and store in DB
+6. Respond with JWT
