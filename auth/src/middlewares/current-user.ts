@@ -13,6 +13,11 @@ interface UserPayload {
   email: string;
 }
 
+/**
+ * Typescript is very strict with its types
+ * To enable modifying currentUser in request,
+ * We need to specify there is such a type in it
+ */
 declare global {
   namespace Express {
     interface Request {
