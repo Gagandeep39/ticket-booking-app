@@ -5,21 +5,33 @@
  * @modify date 2020-10-21 12:32:35
  * @desc Manage Registration routes
  */
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
+import { BadRequestError } from '../errors/bad-request-error';
 import { RequestValidationError } from '../errors/request-validation-error';
+import { User } from '../models/user';
 import { signUpValidator } from '../validators/sign-up';
 const router = express.Router();
 
 router.post(
   '/api/users/signup',
   signUpValidator,
-  (req: Request, res: Response): any => {
+  (req: Request, res: Response, next: NextFunction): any => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) throw new RequestValidationError(errors.array());
 
     const { email, password } = req.body;
-    res.send('Created User');
+    User
+      .findOne({ email })
+      .then((existingUser) => {
+        if (existingUser) throw new BadRequestError('Email is already taken');
+
+        User.build({ email, password })
+          .save()
+          .then((newUser) => res.status(201).send(newUser))
+          .catch((error) => next(error));
+      })
+      .catch((error) => next(error));
   }
 );
 
