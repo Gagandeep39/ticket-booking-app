@@ -17,6 +17,10 @@
     - [Event Bus](#event-bus)
   - [Events](#events)
   - [Guide to creating typescript apps](#guide-to-creating-typescript-apps)
+  - [Setup Google cloud development environment](#setup-google-cloud-development-environment)
+    - [Steps to Run](#steps-to-run)
+    - [Using Skaffold with Google Cloud](#using-skaffold-with-google-cloud)
+  - [Note](#note)
 
 ## Features
 
@@ -134,3 +138,51 @@
 ```
 - Some dependecies may give error while importng, simple add `@types/<dependecy>` if there is any
   - This error is because normal libraries do not specify types which is required by typescript
+
+## Setup Google cloud development environment
+
+- GKE provies nice support for Skaffold
+- Register in Goole cloud (Requires a credit card)
+
+### Steps to Run 
+
+- Using Gogle CLoud SDK
+  1. Go to the [link](https://cloud.google.com/sdk/docs/quickstarts)
+  2. Follow the installation directions
+     1. Download the SDK installer
+     2. Install
+  3. Run `gcloud auth login` (Redirected t browser for logging in)
+  4. `gcloud init` Run through all the instructions
+  5. If Docker not nstalled on PC
+     1. `gcloud components install kubectl`
+     2. `gcloud container clusters get-credentials <cluster-name>`
+  6. If Docker is installed
+     1. `gcloud container clusters get-credentials <cluster-name>`
+     2. Go to Docker desktop and cross verify the Context shows something related to google cloud instead of `Docker Desktop`
+  
+### Using Skaffold with Google Cloud
+
+1. Eable Google CLoud build
+   1. Go to Google Cloud
+   2. Sidebar -> Cloud Build
+   3. Enable
+2. Update Skaffold.yml to enable google cloud support
+   1. Below local -> Build -> Push append the code
+   ```yml
+   googleCloudBuild: 
+      projectId: <Found in Project details in google cloud>
+   ```
+   2. Replace artifacts -> Image name with `us.gcr.io/<project-id>/<img-name>`
+   3. Make sure to replace the image names in other k8s files aswell
+3. Setup ingress-nginx in cloud cluster
+   1. Go to Skaffold docs and look for Google cloud specific command
+   2. Run the command on PC (Make sure contezt is set to google cloud)
+4. Update host name to point to cloud cluster
+   1. GoogleCloud -> Sidebar -> Loadbalancer
+   2. A load balancer will be present whci was created in Step 3
+   3. Fetch the oad bancer IP and Map it with host name in PC in System32 dicrectory
+5. Restart skaffold
+
+## Note
+
+- Sometimes when using different hostname with ingress we get `Not secure` error in chrome - Fixed by typing anywhere on chrome screen `thisisunsafe`
