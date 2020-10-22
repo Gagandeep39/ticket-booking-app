@@ -7,4 +7,6 @@
  */
 import 'bootstrap/dist/css/bootstrap.css';
 
-export default globalCss =  ({ Component, pageProps }) => <Component {...pageProps} />;
+const globalCss = ({ Component, pageProps }) => <Component {...pageProps} />;
+
+export default globalCss;
