@@ -7,11 +7,8 @@ import axios from 'axios';
  * @modify date 2020-10-22 14:16:03
  * @desc Starting point
  */
-const LandingPage = ({ color }) => {
-  // console.log(color);
-  // axios.get('/api/users/currentUser').then((response) => {
-  //   console.log(response.data);
-  // });
+const LandingPage = ({ currentUser }) => {
+  console.log(currentUser);
 
   return <h1>Landing Page</h1>;
 };
@@ -27,7 +24,24 @@ const LandingPage = ({ color }) => {
 LandingPage.getInitialProps = async () => {
   // Endsup with error
   // const response = await axios.get('/api/users/currentUser');
-  return { color: 'red' };
+  if (typeof window === 'undefined') {
+    // We ar eon server
+
+    return await axios
+      .get(
+        'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentUser',
+        {
+          headers: {
+            Host: 'localhost',
+          },
+        }
+      )
+      .then((response) => response.data);
+  } else {
+    return await axios
+      .get('/api/users/currentUser')
+      .then((response) => response.data);
+  }
 };
 
 export default LandingPage;
