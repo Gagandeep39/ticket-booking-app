@@ -6,22 +6,23 @@
  * @desc Sign Up Component
  */
 import React, { useState } from 'react';
-import axios from 'axios';
+import useRequest from '../../hooks/use-request';
+import Router from 'next/router';
 
 export default function signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
+  const { doRequest, errors } = useRequest({
+    url: '/api/users/signup',
+    body: { email, password },
+    method: 'post',
+    onSuccess: () => Router.push('/'),
+  });
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(email, password);
-    axios
-      .post('/api/users/signup', { email, password })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => setErrors(error.response.data.errors));
+    doRequest();
   };
 
   return (
@@ -47,16 +48,7 @@ export default function signup() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      {errors.length > 0 && (
-        <div className='alert alert-danger'>
-          <h4>Oooops...</h4>
-          <ul className='my-0'>
-            {errors.map((err) => (
-              <li>{err.message}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {errors}
 
       <button className='btn btn-primary'>Sign Up</button>
     </form>
