@@ -13,10 +13,7 @@ import { app } from '../../app';
  * Respond with details of current user
  */
 it('Respond with details of current user', async () => {
-  const res = await request(app)
-    .post('/api/users/signup')
-    .send({ email: 'singh.gagandeep3911@gmail.com', password: '123456' });
-  const cookie = res.get('Set-Cookie');
+  const cookie = await global.signIn();
 
   await request(app)
     .get('/api/users/currentuser')
