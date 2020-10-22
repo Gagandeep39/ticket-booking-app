@@ -3,7 +3,7 @@ LABEL mantainer="singh.gagandeep3911@gmail.com"
 
 WORKDIR /app
 COPY package.json .
-RUN npm install
+RUN npm install --only=prod
 COPY . .
 
 CMD [ "npm", "start" ]
