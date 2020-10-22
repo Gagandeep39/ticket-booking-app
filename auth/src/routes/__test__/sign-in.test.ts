@@ -58,6 +58,7 @@ it('Returns 200 on Successfull login', async () => {
     .send({ email: 'singh.gagandeep3911@gmail.com', password: '123456' })
     .then((response) => {
       expect(response.status).toEqual(200);
+      expect(response.get('Set-Cookie')).toBeDefined();
     });
 });
 
