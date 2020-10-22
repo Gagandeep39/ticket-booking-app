@@ -6,7 +6,19 @@
  * @desc Standardway to provide Global CSS
  */
 import 'bootstrap/dist/css/bootstrap.css';
+import buildClient from '../api/build-client';
 
-const globalCss = ({ Component, pageProps }) => <Component {...pageProps} />;
+const AppComponent = ({ Component, pageProps }) => <Component {...pageProps} />;
 
-export default globalCss;
+/**
+ * Hwen there are multiple gtInitialProps, only one is called
+ * getInitialProps can be removed from Landing page
+ */
+AppComponent.getInitialProps = async (appContext) => {
+  const { data } = await buildClient(appContext.ctx).get(
+    '/api/users/currentuser'
+  );
+  return data;
+};
+
+export default AppComponent;
