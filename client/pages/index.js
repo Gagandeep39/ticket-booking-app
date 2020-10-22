@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 /**
  * @author Gagandeep Singh
  * @email singh.gagandeep3911@gmail.com
@@ -7,9 +5,10 @@ import axios from 'axios';
  * @modify date 2020-10-22 14:16:03
  * @desc Starting point
  */
+import buildClient from '../api/build-client';
+
 const LandingPage = ({ currentUser }) => {
   console.log(currentUser);
-
   return <h1>Landing Page</h1>;
 };
 
@@ -24,25 +23,9 @@ const LandingPage = ({ currentUser }) => {
  * When the method is called on server, it recieves a prop named req which contains all request data
  * It can be used to fetch cookie and set header for response
  */
-LandingPage.getInitialProps = async ({ req }) => {
-  // Endsup with error
-  // const response = await axios.get('/api/users/currentUser');
-  if (typeof window === 'undefined') {
-    // We ar eon server
-
-    return await axios
-      .get(
-        'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentUser',
-        {
-          headers: req.headers,
-        }
-      )
-      .then((response) => response.data);
-  } else {
-    return await axios
-      .get('/api/users/currentUser')
-      .then((response) => response.data);
-  }
+LandingPage.getInitialProps = async (context) => {
+  const { data } = await buildClient(context).get('/api/users/currentuser');
+  return data;
 };
 
 export default LandingPage;
