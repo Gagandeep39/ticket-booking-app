@@ -15,7 +15,9 @@ it('Returns 201 on Successful sign Up', () =>
   request(app)
     .post('/api/users/signup')
     .send({ email: 'singh.gagandeep3911@gmal.com', password: '123456' })
-    .expect(201));
+    .then((response) => {
+      expect(response.status).toEqual(201);
+    }));
 
 /**
  *Retuns @code 400 on invalid email
@@ -25,13 +27,17 @@ it('Returns 400 with invalid data', () => {
   request(app)
     .post('/api/users/signup')
     .send({ email: 'singh.gagandeep3911gmal.com', password: '123456' })
-    .expect(200);
+    .then((response) => {
+      expect(response.status).toEqual(400);
+    });
 
   // No password
   request(app)
     .post('/api/users/signup')
     .send({ email: 'singh.gagandeep3911gmal.com' })
-    .expect(200);
+    .then((response) => {
+      expect(response.status).toEqual(400);
+    });
 });
 
 /**
@@ -45,16 +51,19 @@ it('Prevent signup with invalid email', () => {
   request(app)
     .post('/api/users/signup')
     .send({ email: 'singh.gagandeep3911@gmal.com', password: '123456' })
-    .expect(400);
+    .then((response) => {
+      expect(response.status).toEqual(400);
+    });
 });
 
 /**
  * Check Cookie is set or not
  */
 it('Set cookie after successful signup', () => {
-  const response = request(app)
+  request(app)
     .post('/api/users/signup')
     .send({ email: 'singh.gagandeep3911@gmal.com', password: '123456' })
-    .expect(201)
-    .then((response) => expect(response.get('Set-Cookie')).toBeDefined());
+    .then((response) => {
+      expect(response.get('Set-Cookie')).toBeDefined();
+    });
 });
