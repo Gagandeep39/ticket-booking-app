@@ -24,3 +24,15 @@ it('Respond with details of current user', async () => {
       expect(response.status).toEqual(200);
     });
 });
+
+/**
+ * Null if not authenticated
+ */
+it('Null if not authenticated', async () => {
+  await request(app)
+    .get('/api/users/currentuser')
+    .send()
+    .then((response) => {
+      expect(response.body.currentUser).toEqual(null);
+    });
+});
