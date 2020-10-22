@@ -4,6 +4,8 @@
   - [Description](#description)
   - [Routes](#routes)
   - [Libraries Used](#libraries-used)
+    - [Dependencies](#dependencies)
+    - [Dev Dependencies (Mostly testing)](#dev-dependencies-mostly-testing)
   - [Errors](#errors)
   - [Data persistence](#data-persistence)
     - [Support for Async Error  handlers](#support-for-async-error-handlers)
@@ -33,6 +35,8 @@
 
 ## Libraries Used
 
+### Dependencies
+
 - `typescript` Add ts support
 - `ts-node-dev` Run ts files directly
 - `morgan`, `@types/morgan` Logging library
@@ -42,6 +46,11 @@
 - `mongoose`,` @types/mongoose` Data persistencen management library
 - `cookie-session`, `@types/cookie-session` To manage cookies on server side
 - `jsonwebtoken`, `@types/jsonwebtoken` Generate and verify token
+
+### Dev Dependencies (Mostly testing)
+- `@types/jest`,  `jest`, `ts-jest` 
+- `@types/supertest`, `supertest`
+- `mongodb-memory-server`
 
 ## Errors
 

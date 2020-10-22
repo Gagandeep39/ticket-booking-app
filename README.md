@@ -22,6 +22,10 @@
     - [Steps to Run](#steps-to-run)
     - [Using Skaffold with Google Cloud](#using-skaffold-with-google-cloud)
   - [Considerations](#considerations)
+  - [Testing a microservice](#testing-a-microservice)
+  - [Testing Goals](#testing-goals)
+  - [Test Dependencies](#test-dependencies)
+  - [Steps to create test cases](#steps-to-create-test-cases)
   - [Note](#note)
 
 ## Features
@@ -194,6 +198,45 @@
 - Avoid hadling error in between code (Simple throw error)
 - A common error handler must be used to catch all these errors
 - Create error objects by extending inbuilt error class
+
+## Testing a microservice
+
+- Testing single piece of code
+- Testing how different pieces of code work together
+- Testing how different components work together
+- Testing how services work together
+
+
+## Testing Goals
+
+- Basic request handling
+- Testing around models
+- Testing send/recieve events
+
+## Test Dependencies
+- `@types/jest`,  `jest`, `ts-jest` 
+- `@types/supertest`, `supertest`
+- `mongodb-memory-server`
+
+## Steps to create test cases
+1. Install required dev dependencies
+2. Update `package.json` with following script
+   ```json
+   "scripts": {
+    "start": "ts-node-dev src/index.ts",
+    "test": "jest --watchAll --no-cache"
+    },
+    "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ]
+   ```
+3. Create a file `src/test/setup.ts` and specify the environent
+4. Create test cases wuth file name as `*.test.ts`
+5. Run `npm test`
+
 
 ## Note
 
