@@ -15,6 +15,7 @@
     - [Expiration](#expiration)
     - [Payments](#payments)
     - [Client](#client)
+    - [Client Application Docs](#client-application-docs)
     - [Event Bus](#event-bus)
   - [Events](#events)
   - [Guide to creating typescript apps](#guide-to-creating-typescript-apps)
@@ -114,6 +115,8 @@
 
 - Using server side rendering
 - Next JS
+
+### [Client Application Docs](client/README.md)
 
 ### Event Bus
 
