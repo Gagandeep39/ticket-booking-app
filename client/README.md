@@ -9,6 +9,9 @@
     - [Solution](#solution)
   - [**NOTE**](#note)
   - [Actions causing execution of getInitialProps](#actions-causing-execution-of-getinitialprops)
+  - [App COmponent and Page Component Difference](#app-component-and-page-component-difference)
+    - [AppComponent](#appcomponent)
+    - [Page Component](#page-component)
   - [Communication with service on different namespace](#communication-with-service-on-different-namespace)
 
 ## Description
@@ -80,6 +83,18 @@ ComponentName.getInitialProps = async () => {}
   - Hard refresh
 - Client side  (Console log statements will be on Client logs)
   - Rediect via routing
+
+## App COmponent and Page Component Difference
+
+### AppComponent
+
+- `_app.js` File name
+- `AppComonent.getInitialProps` have arguments as `{Component, ctx: {req, res}}`
+
+### Page Component
+
+- `componentname.js`  File name
+- `PageComponent.getInitialProps` have arguments as `{req, res}`
 
 ## Communication with service on different namespace
 
