@@ -47,3 +47,14 @@ it('Prevent signup with invalid email', () => {
     .send({ email: 'singh.gagandeep3911@gmal.com', password: '123456' })
     .expect(400);
 });
+
+/**
+ * Check Cookie is set or not
+ */
+it('Set cookie after successful signup', () => {
+  const response = request(app)
+    .post('/api/users/signup')
+    .send({ email: 'singh.gagandeep3911@gmal.com', password: '123456' })
+    .expect(201)
+    .then((response) => expect(response.get('Set-Cookie')).toBeDefined());
+});
