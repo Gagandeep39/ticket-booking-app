@@ -20,8 +20,11 @@ const LandingPage = ({ currentUser }) => {
  * 3. Different services have dynamic IPs in it
  * 4. When rquest is made from outside Kubernetes, proper mapping is performed by gateway
  * 5. When request is made from inside, no interaction is done with gateway, the client doesn;t know who must recieve this request
+ * --------------------------------
+ * When the method is called on server, it recieves a prop named req which contains all request data
+ * It can be used to fetch cookie and set header for response
  */
-LandingPage.getInitialProps = async () => {
+LandingPage.getInitialProps = async ({ req }) => {
   // Endsup with error
   // const response = await axios.get('/api/users/currentUser');
   if (typeof window === 'undefined') {
@@ -31,9 +34,7 @@ LandingPage.getInitialProps = async () => {
       .get(
         'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentUser',
         {
-          headers: {
-            Host: 'localhost',
-          },
+          headers: req.headers,
         }
       )
       .then((response) => response.data);
