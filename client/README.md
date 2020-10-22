@@ -16,6 +16,7 @@
 - `react `
 - `react-dom `
 - `next`
+- `axios`
 
 ## NextJS
 
