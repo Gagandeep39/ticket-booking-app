@@ -21,8 +21,8 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  mongoose.connection.db.collections().then((collections) => {
-    collections.forEach((collec) => collec.deleteMany({}));
+  await mongoose.connection.db.collections().then((collections) => {
+    collections.forEach(async (collec) => await collec.deleteMany({}));
   });
 });
 
