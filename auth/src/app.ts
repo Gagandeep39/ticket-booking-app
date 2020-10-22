@@ -25,7 +25,7 @@ app.use(morgan('short'));
 app.use(
   cookieSession({
     signed: false,
-    // secure: true // Used for https
+    // secure: process.env.NODE_ENV !== 'test', // Used for https
   })
 );
 
