@@ -9,11 +9,25 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-function useRequest({ url, method, body }) {
+/**
+ * 
+ * @param url Url to make a request to
+ * @param method GET, POST etc.
+ * @param body Data to be sent
+ * @param onSuccess Callback to be executed on success
+ * To use this Hook
+ * 1. User Creates the hook with all required data
+ * 2. Sends a request by calling doRequest()
+ * 3. On error, an Error UI is recieved in response
+ * 4. On success the callback function is called
+ */
+function useRequest({ url, method, body, onSuccess }) {
   const [errors, setErrors] = useState(null);
   const doRequest = () => {
     axios[method](url, body)
       .then((response) => {
+        // Will be called if user provides a callback and there is o error in making request
+        if (onSuccess) onSuccess(response.data);
         return response.data;
       })
       .catch((error) =>
@@ -36,6 +50,7 @@ useRequest.propTypes = {
   url: PropTypes.string.isRequired,
   method: PropTypes.string.isRequired,
   body: PropTypes.object.isRequired,
+  onSuccess: PropTypes.func.isRequired,
 };
 
 export default useRequest;
