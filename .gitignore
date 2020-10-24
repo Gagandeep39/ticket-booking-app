@@ -34,8 +34,8 @@ build/
 
 ### Dependenciets ###
 **/node_modules/
-**/.git
-**/README.md
+# **/.git
+# **/README.md
 **/LICENSE
 **/.vscode
 **/npm-debug.log
