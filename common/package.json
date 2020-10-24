@@ -1,0 +1,17 @@
+{
+  "name": "@gagan-personal/common",
+  "version": "1.0.0",
+  "description": "Cmmon Authentication related code",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "del ./build/*",
+    "start": "npm run clean && tsc"
+  },
+  "author": "Gagandeep Singh",
+  "license": "MIT",
+  "devDependencies": {
+    "del-cli": "^3.0.1",
+    "typescript": "^4.0.3"
+  }
+}
