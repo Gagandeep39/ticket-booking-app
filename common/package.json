@@ -1,8 +1,12 @@
 {
   "name": "@gagan-personal/common",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Cmmon Authentication related code",
-  "main": "index.js",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "./build/**/*"
+  ],
   "scripts": {
     "build": "tsc",
     "clean": "del ./build/*",

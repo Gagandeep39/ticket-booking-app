@@ -57,6 +57,7 @@
   "files": [
     "./build/**/*"
   ]
+}
 ```
 
 ## Creating a patch upgrade (Bugfixes)
