@@ -5,10 +5,12 @@
   - [Login to npm](#login-to-npm)
   - [Steps to Publish](#steps-to-publish)
   - [Dependencies](#dependencies)
+    - [Production `--save`](#production---save)
     - [Dev `--save-dev`](#dev---save-dev)
   - [Exporting libraries](#exporting-libraries)
   - [Creating a patch upgrade (Bugfixes)](#creating-a-patch-upgrade-bugfixes)
   - [Steps](#steps)
+  - [NOTE](#note)
 
 ## Description
 
@@ -30,6 +32,15 @@
 
 ## Dependencies
 
+### Production `--save`
+
+- `@types/cookie-session`
+- `@types/express`
+- `@types/jsonwebtoken`
+- `cookie-session`
+- `express`
+- `express-validator`
+- `jsonwebtoken`
 
 ### Dev `--save-dev`
 
@@ -56,3 +67,8 @@
 1. `npm version patch`
 2. `npm run build`
 3. `npm publish`
+
+## NOTE
+
+- **Always** make sure a new build is published using `npm run publish` after making any changes
+- Other microservices use this library as a `npm package`
