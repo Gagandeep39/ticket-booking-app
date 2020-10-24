@@ -6,6 +6,9 @@
   - [Steps to Publish](#steps-to-publish)
   - [Dependencies](#dependencies)
     - [Dev `--save-dev`](#dev---save-dev)
+  - [Exporting libraries](#exporting-libraries)
+  - [Creating a patch upgrade (Bugfixes)](#creating-a-patch-upgrade-bugfixes)
+  - [Steps](#steps)
 
 ## Description
 
@@ -32,3 +35,24 @@
 
 - `typescript`
 - `del-cli` - Allows cleaning build riectory before every build
+
+## Exporting libraries
+
+- Update package.json with target source code
+```json
+{
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "./build/**/*"
+  ]
+```
+
+## Creating a patch upgrade (Bugfixes)
+- `npm version patch`
+- Must be executed everytime we publsh an upgrade
+
+## Steps
+1. `npm version patch`
+2. `npm run build`
+3. `npm publish`
