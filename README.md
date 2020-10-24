@@ -17,6 +17,8 @@
     - [Client](#client)
     - [Client Application Docs](#client-application-docs)
     - [Event Bus](#event-bus)
+  - [Common Modules](#common-modules)
+  - [Common Module Docs](#common-module-docs)
   - [Events](#events)
   - [Guide to creating typescript apps](#guide-to-creating-typescript-apps)
   - [Setup Google cloud development environment](#setup-google-cloud-development-environment)
@@ -121,6 +123,13 @@
 ### Event Bus
 
 - NAT Streaming server
+
+## Common Modules
+
+- Common code that will be shared between services
+- Created as a separated `npm` package that will be imported in `package.json`
+
+## [Common Module Docs](common/README.md)
 
 ## Events
 
