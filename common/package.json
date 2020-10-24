@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "del ./build/*",
-    "start": "npm run clean && tsc"
+    "start": "npm run clean && tsc",
+    "pub": "npm version patch && npm run build && npm publish"
   },
   "author": "Gagandeep Singh",
   "license": "MIT",
