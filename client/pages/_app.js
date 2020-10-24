@@ -8,7 +8,14 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import buildClient from '../api/build-client';
 
-const AppComponent = ({ Component, pageProps }) => <Component {...pageProps} />;
+const AppComponent = ({ Component, pageProps, currentUser }) => {
+  return (
+    <div>
+      <h1>Hello {currentUser?.email} </h1>
+      <Component {...pageProps} />
+    </div>
+  );
+};
 
 /**
  * Hwen there are multiple gtInitialProps, only one is called
@@ -18,7 +25,15 @@ AppComponent.getInitialProps = async (appContext) => {
   const { data } = await buildClient(appContext.ctx).get(
     '/api/users/currentuser'
   );
-  return data;
+  // Fetch Page props
+  let pageProps = {};
+  if (appContext.Component.getInitialProps) {
+    pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+  }
+  return {
+    pageProps,
+    ...data,
+  };
 };
 
 export default AppComponent;
