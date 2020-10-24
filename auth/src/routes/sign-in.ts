@@ -7,8 +7,8 @@
  */
 import express, { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { BadRequestError } from '../errors/bad-request-error';
-import { validateRequest } from '../middlewares/validate-request';
+import { BadRequestError } from '@gagan-personal/common';
+import { validateRequest } from '@gagan-personal/common';
 import { User } from '../models/user';
 import { Password } from '../service/password';
 import { signInValidator } from '../validators/sign-in';

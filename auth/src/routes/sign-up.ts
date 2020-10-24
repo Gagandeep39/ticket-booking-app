@@ -7,10 +7,10 @@
  */
 import express, { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { BadRequestError } from '../errors/bad-request-error';
+import { BadRequestError } from '@gagan-personal/common';
 import { User } from '../models/user';
 import { signUpValidator } from '../validators/sign-up';
-import { validateRequest } from '../middlewares/validate-request';
+import { validateRequest } from '@gagan-personal/common';
 const router = express.Router();
 
 router.post(
