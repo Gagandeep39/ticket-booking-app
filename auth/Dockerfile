@@ -2,8 +2,8 @@ FROM node:alpine3.12
 LABEL mantainer="singh.gagandeep3911@gmail.com"
 
 WORKDIR /app
-COPY package.json .
+COPY ./package*.json ./
 RUN npm install --only=prod
-COPY . .
+COPY ./ ./
 
 CMD [ "npm", "start" ]
