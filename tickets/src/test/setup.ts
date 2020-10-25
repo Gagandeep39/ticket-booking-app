@@ -5,10 +5,9 @@
  * @modify date 2020-10-22 11:44:21
  * @desc Create test environment
  */
-import request from 'supertest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import { app } from '../app';
+import jwt from 'jsonwebtoken';
 
 let mongo: MongoMemoryServer;
 
@@ -38,18 +37,39 @@ afterAll(() => {
 declare global {
   namespace NodeJS {
     interface Global {
-      signIn(): Promise<string[]>;
+      signIn(): string[];
     }
   }
 }
 
-global.signIn = async () => {
-  const email = 'singh.gagandeep@mail.com';
-  const password = '123456';
-  const response = await request(app)
-    .post('/api/users/signup')
-    .send({ email, password });
+global.signIn = () => {
+  //Build JWT Payload
+  const payload = {
+    id: '1234234f',
+    email: 'test@mail.com',
+  };
 
-  const cookie = response.get('Set-Cookie');
-  return cookie;
+  // Create JWT
+  const token = jwt.sign(payload, process.env.JWT_KEY!);
+
+  // Build Session Object\
+  const session = { jwt: token };
+
+  // Turn into JSON
+  const sessionJSON = JSON.stringify(session);
+
+  // Take JSON and encode as base64
+  const base64 = Buffer.from(sessionJSON).toString('base64');
+
+  // Return String
+  return [`express:sess=${base64}`];
+
+  // const email = 'singh.gagandeep@mail.com';
+  // const password = '123456';
+  // const response = await request(app)
+  //   .post('/api/users/signup')
+  //   .send({ email, password });
+
+  // const cookie = response.get('Set-Cookie');
+  // return cookie;
 };
