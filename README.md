@@ -11,6 +11,7 @@
     - [Auth Service](#auth-service)
     - [Auth Service Docs](#auth-service-docs)
     - [Tickets Service](#tickets-service)
+    - [Tickets Service Docs](#tickets-service-docs)
     - [Orders Servce](#orders-servce)
     - [Expiration](#expiration)
     - [Payments](#payments)
@@ -98,6 +99,8 @@
 
 - Ticket creation/ edition
 - Know whether a ticket can be updated
+
+### [Tickets Service Docs](tickets/README.md)
 
 ### Orders Servce
 
@@ -253,3 +256,4 @@
 ## Note
 
 - Sometimes when using different hostname with ingress we get `Not secure` error in chrome - Fixed by typing anywhere on chrome screen `thisisunsafe`
+- **Always** ue async, await while testing, **never** reply on promises (Creates unwanted issues)

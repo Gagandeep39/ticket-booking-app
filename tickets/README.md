@@ -20,7 +20,7 @@
 | `/api/tickets`     | GET    | `-`                              | Retrieve all tickets   |
 | `/api/tickets/:id` | GET    | `-`                              | Retrieve tickets by ID |
 | `/api/tickets`     | POST   | `{title: string, price: string}` | Create Ticket          |
-| `/api/tickets`     | PUT    | `{title: string, price: string}` | Update Ticket          |
+| `/api/tickets/:id` | PUT    | `{title: string, price: string}` | Update Ticket          |
 
 ## Libraries Used
 
