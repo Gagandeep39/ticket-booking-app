@@ -23,7 +23,10 @@ router.post(
       title,
       price,
       userId: req.currentUser!.id,
-    }).save((newTicket) => res.status(201).send(newTicket));
+    })
+      .save()
+      .then((newTicket) => res.status(201).send(newTicket))
+      .catch((error) => next(error));
   }
 );
 
