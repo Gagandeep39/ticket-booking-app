@@ -30,7 +30,9 @@ router.put(
         if (existingTicket.userId !== req.currentUser?.id)
           throw new NotAuthorizedError();
 
-        Ticket.findByIdAndUpdate(req.params.id, { title, price })
+        existingTicket
+          .set({ title, price })
+          .save()
           .then((updatedTicket) => res.send(updatedTicket))
           .catch((error) => next(error));
       })
