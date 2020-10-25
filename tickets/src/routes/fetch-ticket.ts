@@ -6,26 +6,20 @@
  * @desc Route to fetch Tickets
  */
 
-import {
-  NotFoundError,
-  requireAuth,
-  validateRequest,
-} from '@gagan-personal/common';
-import express, { NextFunction, Request, response, Response } from 'express';
+import { NotFoundError } from '@gagan-personal/common';
+import express, { NextFunction, Request, Response } from 'express';
 import { Ticket } from '../models/tickets';
-import { createTicketsValidator } from '../validators/create-tickets';
 const router = express.Router();
 
-router.post(
-  '/api/tickets',
-  requireAuth,
-  createTicketsValidator,
-  validateRequest,
+router.get(
+  '/api/tickets/:id',
   (req: Request, res: Response, next: NextFunction) => {
-    Ticket.findById(req.body.id).then((ticket) => {
-      if (!ticket) throw new NotFoundError();
-      res.send(ticket);
-    });
+    Ticket.findById(req.params.id)
+      .then((ticket) => {
+        if (!ticket) throw new NotFoundError();
+        res.send(ticket);
+      })
+      .catch((error) => next(error));
   }
 );
 
