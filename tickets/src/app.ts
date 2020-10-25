@@ -14,6 +14,7 @@ import 'express-async-errors';
 import { currentUser, errorHandler } from '@gagan-personal/common';
 import { NotFoundError } from '@gagan-personal/common';
 import { createTicketRouter } from './routes/create-ticket';
+import { fetchTicketRouter } from './routes/fetch-ticket';
 const app = express();
 
 // app.set('trust-proxy', true); // Used for https
@@ -31,6 +32,7 @@ app.use(currentUser);
 
 // Ticket related routes
 app.use(createTicketRouter);
+app.use(fetchTicketRouter);
 
 app.all('*', async () => {
   throw new NotFoundError();
