@@ -13,6 +13,7 @@ export const createTicketsValidator = [
     .isEmpty()
     .withMessage('Title Cannot be empty'),
   body('price')
+    .not()
     .isEmpty()
     .withMessage('Price cannot be Empty')
     .isFloat({gt: 0})
