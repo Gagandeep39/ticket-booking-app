@@ -8,12 +8,12 @@
 import mongoose from 'mongoose';
 // Cluster -> Select your cluster -> Connect -> Connect your application -> Copy connection string
 // Look for key value pair `mongoURI`
-const dbUri: string = process.env.MONGO_URI || '';
 
 // Async FUnction to Connect to Database
 const connectDB = () => {
+  if (!process.env.MONGO_URI) throw new Error('Mongo URI not found');
   mongoose
-    .connect(dbUri, {
+    .connect(process.env.MONGO_URI, {
       // Fix Deperication Errors
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -24,8 +24,9 @@ const connectDB = () => {
       console.log('Mongo DB Connected...');
     })
     .catch((error) => {
-      console.error(error.message);
-      process.exit(1);
+      throw new Error('Invalid Mongo URI');
+      // console.error(error.message);
+      // process.exit(1);
     });
 };
 // Returns a promise with with we can call the above connection code
