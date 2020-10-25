@@ -94,8 +94,6 @@ it('Create a ticket successfully with a valid Input', async () => {
       price: 99,
     })
     .then((response) => {
-      console.log(response);
-      
       expect(response.status).toEqual(201);
     });
   tickets = await Ticket.find({});
