@@ -8,6 +8,7 @@ deploy:
 build:
   local:
     push: false
+    useBuildkit: true
   # googleCloudBuild:
   #   projectId: <Found in Project details in google cloud>
   artifacts:
