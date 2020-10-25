@@ -15,8 +15,6 @@ it('Return 404 if ticket not found', async () => {
     .get(`/api/tickets/${id}`)
     .send()
     .then((response) => {
-      console.log(response.status);
-      
       expect(response.status).toEqual(404);
     });
 });
