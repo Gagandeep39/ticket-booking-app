@@ -26,11 +26,13 @@ stan.on('connect', () => {
   });
 
   const publisher = new TicketCreatedPublisher(stan);
-  publisher.publish({
-    id: '123',
-    title: 'concert',
-    price: 20,
-  });
+  publisher
+    .publish({
+      id: '123',
+      title: 'concert',
+      price: 20,
+    })
+    .catch((error) => console.log(error));
 });
 
 // Signals sent when we press Ctrl + C in terminal
