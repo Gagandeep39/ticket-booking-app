@@ -8,6 +8,9 @@
   - [Notes](#notes)
   - [Queue group](#queue-group)
   - [Subscription Configurations](#subscription-configurations)
+  - [Events Models](#events-models)
+    - [ticket:created](#ticketcreated)
+    - [order:updated](#orderupdated)
 
 ## Description
 
@@ -80,3 +83,21 @@ const subscription = stan.subscribe(
 - `.setDeliverAllAvailable()`
   - Useful to send all event to subsription if service crashes
   - Prevent service to miss data due to crash
+
+## Events Models
+
+### ticket:created
+
+| Key   | Type   |
+| ----- | ------ |
+| id    | string |
+| title | string |
+| price | number |
+
+### order:updated
+
+| Key      | Type   |
+| -------- | ------ |
+| id       | string |
+| userId   | string |
+| ticketId | string |
