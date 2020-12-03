@@ -6,13 +6,14 @@
  * @desc Parent Listener File
  */
 import { Stan, Message } from 'node-nats-streaming';
+import { Event } from '../models/event';
 
-export abstract class CustomListener {
-  abstract subject: string;
+export abstract class CustomListener<T extends Event> {
+  abstract subject: T['subject'];
   abstract queueGroupName: string;
   private client: Stan;
   protected ackWait = 5 * 1000;
-  abstract onMessage(parsedData: any, msg: Message): void;
+  abstract onMessage(parsedData: T['data'], msg: Message): void;
 
   constructor(client: Stan) {
     this.client = client;
