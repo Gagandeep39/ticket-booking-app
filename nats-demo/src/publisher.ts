@@ -19,6 +19,7 @@ stan.on('connect', () => {
     price: 20,
   });
 
-  stan.publish('ticket:created', data, () => console.log('Ticket Created: Event Published')
-  )
+  stan.publish('ticket:created', data, () =>
+    console.log('Ticket Created: Event Published')
+  );
 });
