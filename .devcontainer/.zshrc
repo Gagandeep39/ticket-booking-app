@@ -115,3 +115,6 @@ source $ZSH/oh-my-zsh.sh
 
 
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+
+
+source /usr/local/share/copy-kube-config.sh
