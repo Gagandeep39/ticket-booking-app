@@ -6,9 +6,9 @@
  * @desc Ticket Created Listener
  */
 import { Message } from 'node-nats-streaming';
-import { Listener } from './custom-listener';
+import { CustomListener } from './custom-listener';
 
-export class TicketCreatedListener extends Listener {
+export class TicketCreatedListener extends CustomListener {
   subject: string = 'ticket:created';
   queueGroupName: string = 'payment-service';
   onMessage(parsedData: any, msg: Message): void {

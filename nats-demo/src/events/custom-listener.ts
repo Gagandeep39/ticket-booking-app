@@ -7,7 +7,7 @@
  */
 import { Stan, Message } from 'node-nats-streaming';
 
-export abstract class Listener {
+export abstract class CustomListener {
   abstract subject: string;
   abstract queueGroupName: string;
   private client: Stan;
