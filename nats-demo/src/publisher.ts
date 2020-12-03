@@ -7,6 +7,7 @@
  */
 import nats from 'node-nats-streaming';
 import { randomBytes } from 'crypto';
+import { TicketCreatedPublisher } from './events/ticket-created-publisher';
 require('dotenv').config();
 
 const stan = nats.connect(
@@ -22,17 +23,14 @@ stan.on('connect', () => {
   stan.on('close', () => {
     console.log('Listener Connection Closed');
     process.exit();
-  })
+  });
 
-  const data = JSON.stringify({
+  const publisher = new TicketCreatedPublisher(stan);
+  publisher.publish({
     id: '123',
     title: 'concert',
     price: 20,
   });
-
-  stan.publish('ticket:created', data, () =>
-    console.log('Ticket Created: Event Published')
-  );
 });
 
 // Signals sent when we press Ctrl + C in terminal
