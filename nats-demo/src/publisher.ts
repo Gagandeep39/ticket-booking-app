@@ -18,6 +18,12 @@ const stan = nats.connect(
 );
 stan.on('connect', () => {
   console.log('Publisher connected to NATS');
+
+  stan.on('close', () => {
+    console.log('Listener Connection Closed');
+    process.exit();
+  })
+
   const data = JSON.stringify({
     id: '123',
     title: 'concert',
@@ -28,3 +34,9 @@ stan.on('connect', () => {
     console.log('Ticket Created: Event Published')
   );
 });
+
+// Signals sent when we press Ctrl + C in terminal
+// We gracefilly shutdown our nats connection before shutting down clode
+// Works wih linux, macos
+process.on('SIGINT', () => stan.close());
+process.on('SIGTERM', () => stan.close());

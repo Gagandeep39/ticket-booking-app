@@ -20,6 +20,11 @@ stan.on('connect', () => {
   console.log('Listener connected to NATS');
   const options = stan.subscriptionOptions().setManualAckMode(true);
 
+  stan.on('close', () => {
+    console.log('Listener Connection Closed');
+    process.exit();
+  })
+
   const subscription = stan.subscribe(
     'ticket:created', // Name of vent to subscribe
     'dummy-queue-group', // pecific group to subscribe, Enables reciving eents of a specific group
@@ -37,3 +42,10 @@ stan.on('connect', () => {
     msg.ack();
   });
 });
+
+
+// Signals sent when we press Ctrl + C in terminal
+// We gracefilly shutdown our nats connection before shutting down clode
+// Works wih linux, macos
+process.on('SIGINT', () => stan.close());
+process.on('SIGTERM', () => stan.close());
