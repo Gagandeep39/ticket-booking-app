@@ -6,6 +6,8 @@
   - [Steps to forward](#steps-to-forward)
   - [Consideration](#consideration)
   - [Notes](#notes)
+  - [Queue group](#queue-group)
+  - [Subscription Configurations](#subscription-configurations)
 
 ## Description
 
@@ -41,3 +43,40 @@
 - `kubectl port-forward <pod_name> 8222:8222` Expose port to view NATS GUI
 - `localhost:8222/streaming` Provides info about events, channels, clients
 - Append `?subs=1` in previous step to get more detailed info
+
+## Queue group
+
+```ts
+const subscription = stan.subscribe(
+    'ticket:created', // Name of vent to subscribe
+    'dummy-queue-group',  // Queue Group
+    options // Manual Options configuration
+  );
+```
+
+- Specific group to subscribe, Enables reciving eents of a specific group
+- Make sures NAT doesnt delete all events if service crash
+- When service crashes, all subscription are closed by NAT server and all events are dumped
+- If a grup is created, subscriptions are not closed
+
+## Subscription Configurations
+
+```ts
+  const options = stan
+    .subscriptionOptions()
+    .setManualAckMode(true)
+    .setDurableName('dummy-service')
+
+    .setDeliverAllAvailable();
+```
+
+- Allows modifying default configuration options of NATs
+- `setDurableName('dummy-service')`
+  - Internally NAT server creates an entry for ubscription
+  - Allows NAT server to know whether the event has been pocessed
+  - Make sure events is not missed
+- `setManualAckMode(true)`
+  - Waits for ack from subscriber because considering event publish as success
+- `.setDeliverAllAvailable()`
+  - Useful to send all event to subsription if service crashes
+  - Prevent service to miss data due to crash
