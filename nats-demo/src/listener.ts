@@ -5,7 +5,7 @@
  * @modify date 2020-12-03 11:37:07
  * @desc Listener event
  */
-import nats, { Message } from 'node-nats-streaming';
+import nats, { Message, Stan } from 'node-nats-streaming';
 import { randomBytes } from 'crypto';
 require('dotenv').config();
 
@@ -25,7 +25,7 @@ stan.on('connect', () => {
     // Allows NAT server to know whether the event has been pocessed
     // Make sure events is not missed
     .setDurableName('dummy-service')
-    // Useful to send all event to subsription if service crashes 
+    // Useful to send all event to subsription if service crashes
     // Prevent service to miss data due to crash
     .setDeliverAllAvailable();
 
@@ -38,7 +38,7 @@ stan.on('connect', () => {
     'ticket:created', // Name of vent to subscribe
     // pecific group to subscribe, Enables reciving eents of a specific group
     // Make sures NAT doesnt delete all events if service crash
-    'dummy-queue-group', 
+    'dummy-queue-group',
     options // Manual Options configuration
   );
 
@@ -59,3 +59,45 @@ stan.on('connect', () => {
 // Works wih linux, macos
 process.on('SIGINT', () => stan.close());
 process.on('SIGTERM', () => stan.close());
+
+abstract class Listener {
+  abstract subject: string;
+  abstract queueGroupName: string;
+  private client: Stan;
+  protected ackWait = 5 * 1000;
+  abstract onMessage(parsedData: any, msg: Message): void;
+
+  constructor(client: Stan) {
+    this.client = client;
+  }
+
+  subscriptionOptions() {
+    return this.client
+      .subscriptionOptions()
+      .setDeliverAllAvailable()
+      .setManualAckMode(true)
+      .setAckWait(this.ackWait)
+      .setDurableName(this.queueGroupName);
+  }
+
+  listen() {
+    const subscription = this.client.subscribe(
+      this.subject,
+      this.queueGroupName,
+      this.subscriptionOptions()
+    );
+
+    subscription.on('message', (msg: Message) => {
+      console.log(`Message Recieved: ${this.subject} / ${this.queueGroupName}`);
+      const parsedData = this.parseMessage(msg);
+      this.onMessage(parsedData, msg);
+    });
+  }
+
+  parseMessage(msg: Message) {
+    const data = msg.getData();
+    return typeof data === 'string'
+      ? JSON.parse(data)
+      : JSON.parse(data.toString('utf-8'));
+  }
+}
