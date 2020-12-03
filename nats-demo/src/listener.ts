@@ -6,19 +6,28 @@
  * @desc Listener event
  */
 import nats, { Message } from 'node-nats-streaming';
-import { type } from 'os';
+import { randomBytes } from 'crypto';
 require('dotenv').config();
 
-const stan = nats.connect('ticketing', 'client-listener', {
-  url: `http://${process.env.NATS_URL || 'localhost'}:4222`,
-});
+const stan = nats.connect(
+  'ticketing',
+  `listener-${randomBytes(4).toString('hex')}`,
+  {
+    url: `http://${process.env.NATS_URL || 'localhost'}:4222`,
+  }
+);
 stan.on('connect', () => {
   console.log('Listener connected to NATS');
-  const subscription = stan.subscribe('ticket:created');
+  const subscription = stan.subscribe(
+    'ticket:created', // Name of vent to subscribe
+    'dummy-queue-group' // pecific group to subscribe
+  );
 
   subscription.on('message', (msg: Message) => {
     console.log('-------------------');
     console.log('Message recieved.');
+    console.log(`Recieved from #${msg.getSequence()}`);
+
     console.log(`Recieved event #${msg.getSubject()}`);
     console.log(`Recieved Data #${msg.getData()}`);
     console.log('-------------------');
