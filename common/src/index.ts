@@ -23,3 +23,17 @@ export * from './middlewares/current-user';
 export * from './middlewares/error-handler';
 export * from './middlewares/require-auth';
 export * from './middlewares/validate-request';
+
+/**
+ * Export Models
+ */
+export * from './models/event';
+export * from './models/subject';
+export * from './models/ticket-created-event';
+export * from './models/ticket-updated-event';
+
+/**
+ * Export Events
+ */
+export * from './events/custom-listener';
+export * from './events/custom-publisher';

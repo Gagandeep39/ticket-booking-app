@@ -41,6 +41,7 @@
 - `express`
 - `express-validator`
 - `jsonwebtoken`
+- `node-nats-streaming`
 
 ### Dev `--save-dev`
 
