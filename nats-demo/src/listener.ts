@@ -18,18 +18,22 @@ const stan = nats.connect(
 );
 stan.on('connect', () => {
   console.log('Listener connected to NATS');
+  const options = stan.subscriptionOptions().setManualAckMode(true);
+
   const subscription = stan.subscribe(
     'ticket:created', // Name of vent to subscribe
-    'dummy-queue-group' // pecific group to subscribe
+    'dummy-queue-group', // pecific group to subscribe, Enables reciving eents of a specific group
+    options // Manual Options configuration
   );
 
   subscription.on('message', (msg: Message) => {
     console.log('-------------------');
     console.log('Message recieved.');
     console.log(`Recieved from #${msg.getSequence()}`);
-
     console.log(`Recieved event #${msg.getSubject()}`);
     console.log(`Recieved Data #${msg.getData()}`);
     console.log('-------------------');
+    // Sends a manual acknowledgement
+    msg.ack();
   });
 });
