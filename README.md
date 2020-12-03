@@ -30,6 +30,10 @@
   - [Testing Goals](#testing-goals)
   - [Test Dependencies](#test-dependencies)
   - [Steps to create test cases](#steps-to-create-test-cases)
+  - [Event Listener](#event-listener)
+    - [Specs](#specs)
+    - [Class Structure](#class-structure)
+  - [Extra Tools](#extra-tools)
   - [Note](#note)
 
 ## Features
@@ -252,6 +256,34 @@
 4. Create test cases wuth file name as `*.test.ts`
 5. Run `npm test`
 
+## Event Listener
+
+### Specs
+
+| Property                  | Type                       | Goal                                        |
+| ------------------------- | -------------------------- | ------------------------------------------- |
+| subject (abstract)        | string                     | Channel name the listener will listen to    |
+| onMessage (abstract)      | (event: EventData) => void | Callback function to handle event           |
+| client                    | stan                       | NATS client                                 |
+| queueGroupName (abstract) | string                     | Name of queue group listener belongs to     |
+| ackWait                   | number                     | Seconds the listener wait for ack a message |
+| subscriptionOptions       | SubscriptionOptions        | Subscription Config                         |
+| listen                    | ()=>void                   | Code to setup subscription                  |
+| parseMessage              | (msg: Message) => any      | Helper function to parse message            |
+
+### Class Structure
+
+- Parent Class `ClassListener`
+  - Child Class `TicketCreatedListener`
+  - Child Class `OrderUpdatedListener`
+
+## Extra Tools
+
+- Using Common class definition accross services in multiple language
+- Tools
+  - JSON Schmea
+  - Protobuf
+  - Apache Avro
 
 ## Note
 
