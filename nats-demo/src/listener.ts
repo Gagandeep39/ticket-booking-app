@@ -18,16 +18,27 @@ const stan = nats.connect(
 );
 stan.on('connect', () => {
   console.log('Listener connected to NATS');
-  const options = stan.subscriptionOptions().setManualAckMode(true);
+  const options = stan
+    .subscriptionOptions()
+    .setManualAckMode(true)
+    // Internally NAT server creates an entry for ubscription
+    // Allows NAT server to know whether the event has been pocessed
+    // Make sure events is not missed
+    .setDurableName('dummy-service')
+    // Useful to send all event to subsription if service crashes 
+    // Prevent service to miss data due to crash
+    .setDeliverAllAvailable();
 
   stan.on('close', () => {
     console.log('Listener Connection Closed');
     process.exit();
-  })
+  });
 
   const subscription = stan.subscribe(
     'ticket:created', // Name of vent to subscribe
-    'dummy-queue-group', // pecific group to subscribe, Enables reciving eents of a specific group
+    // pecific group to subscribe, Enables reciving eents of a specific group
+    // Make sures NAT doesnt delete all events if service crash
+    'dummy-queue-group', 
     options // Manual Options configuration
   );
 
@@ -42,7 +53,6 @@ stan.on('connect', () => {
     msg.ack();
   });
 });
-
 
 // Signals sent when we press Ctrl + C in terminal
 // We gracefilly shutdown our nats connection before shutting down clode
