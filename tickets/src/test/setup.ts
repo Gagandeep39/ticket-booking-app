@@ -9,6 +9,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
+jest.mock('../config/nats-wrapper.ts')
 let mongo: MongoMemoryServer;
 
 beforeAll(async () => {
@@ -22,6 +23,8 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  // Ensures nats is initliazed for everytest
+  jest.clearAllMocks();
   await mongoose.connection.db.collections().then((collections) => {
     collections.forEach(async (collec) => await collec.deleteMany({}));
   });

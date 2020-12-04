@@ -1,0 +1,19 @@
+# Make sure you are signed in befire running 
+### Create Ticket
+
+POST http://localhost/api/tickets
+Content-Type: application/json
+
+{
+  "title": "Dummy",
+  "price": "123"
+}
+
+### Update Ticket
+PUT http://localhost/api/tickets/5fc9df479acd7200194fb098
+Content-Type: application/json
+
+{
+  "title": "Dummy Update",
+  "price": "123"
+}

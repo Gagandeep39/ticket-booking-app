@@ -12,6 +12,8 @@ import {
   validateRequest,
 } from '@gagan-personal/common';
 import express, { NextFunction, Request, Response } from 'express';
+import { natsWrapper } from '../config/nats-wrapper';
+import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
 import { Ticket } from '../models/tickets';
 import { createTicketsValidator } from '../validators/create-tickets';
 const router = express.Router();
@@ -33,7 +35,15 @@ router.put(
         existingTicket
           .set({ title, price })
           .save()
-          .then((updatedTicket) => res.send(updatedTicket))
+          .then((updatedTicket) => {
+            new TicketUpdatedPublisher(natsWrapper.client).publish({
+              id: updatedTicket.id,
+              price: updatedTicket.price,
+              title: updatedTicket.title,
+              userId: updatedTicket.userId,
+            });
+            res.send(updatedTicket);
+          })
           .catch((error) => next(error));
       })
       .catch((error) => next(error));

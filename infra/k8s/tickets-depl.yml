@@ -22,6 +22,16 @@ spec:
           env:
             - name: MONGO_URI
               value: mongodb://tickets-mongo-srv:27017/tickets
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              # Can be any name
+              value: ticketing
+            - name: NATS_CLIENT_ID
+              # Provides deployment name to client id environement
+              valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.name
             - name: JWT_KEY
               valueFrom:
                   secretKeyRef:

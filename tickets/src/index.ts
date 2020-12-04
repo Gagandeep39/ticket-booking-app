@@ -9,8 +9,13 @@ import dotenv from 'dotenv';
 
 import { connectDB } from './config/db';
 import { app } from './app';
+import { connectNAT } from './config/nats';
 
 dotenv.config();
+
+//  NATS related Events
+connectNAT();
+//  Mongo DB Connection
 connectDB();
 
 const PORT = process.env.PORT || 3000;
