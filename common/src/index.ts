@@ -31,6 +31,7 @@ export * from './models/event';
 export * from './models/subject';
 export * from './models/ticket-created-event';
 export * from './models/ticket-updated-event';
+export * from './models/order-status';
 
 /**
  * Export Events
