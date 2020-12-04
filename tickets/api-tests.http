@@ -8,3 +8,12 @@ Content-Type: application/json
   "title": "Dummy",
   "price": "123"
 }
+
+### Update Ticket
+PUT http://localhost/api/tickets/5fc9df479acd7200194fb098
+Content-Type: application/json
+
+{
+  "title": "Dummy Update",
+  "price": "123"
+}
