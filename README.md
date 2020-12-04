@@ -34,6 +34,7 @@
     - [Specs](#specs)
     - [Class Structure](#class-structure)
   - [Extra Tools](#extra-tools)
+  - [Manually writing Mock Libraries](#manually-writing-mock-libraries)
   - [Note](#note)
 
 ## Features
@@ -284,6 +285,14 @@
   - JSON Schmea
   - Protobuf
   - Apache Avro
+
+## Manually writing Mock Libraries
+
+1. Create a folder named `__mock__` inside same directory as class to be mocked
+   - eg. For Mocking `src/config/nats.ts` we create `src/config/__mocks__/nats.ts`
+2. Create the Mock class with same methods and class names as actual class
+3. Create a fake implementation logic
+4. Import it inside `*.test.ts` using `jest.mock('./path/to/orfinal/file')` or the staring `setup.ts` fil of tests
 
 ## Note
 
