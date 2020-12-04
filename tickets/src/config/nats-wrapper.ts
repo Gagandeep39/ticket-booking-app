@@ -10,16 +10,22 @@ class NatsWrapper {
   // ? implies it may be undefined sometimes
   private _client?: Stan;
 
+  get client() {
+    if (!this._client)
+      throw new Error('Canot access NATS client without connecting to server.');
+    return this._client;
+  }
+
   connect(clusterId: string, clientId: string, url: string) {
-    this._client = nats.connect(clusterId, clientId, { url: url });
+    this._client = nats.connect(clusterId, clientId, { url });
     return new Promise((resolve, reject) => {
       // ! implies, we know its not null
-      this._client!.on('connect', () => {
+      this.client.on('connect', () => {
         console.log('NATS Server connected...');
         console.log(`ClusterID: ${clusterId} | ClientID: ${clientId}`);
         resolve();
       });
-      this._client!.on('error', (error) => {
+      this.client.on('error', (error) => {
         reject(error);
       });
     });
