@@ -12,6 +12,7 @@ build:
   # googleCloudBuild:
   #   projectId: <Found in Project details in google cloud>
   artifacts:
+    # Auth Service
     - image: gagandeep39/ticket-booking-auth
       context: auth
       docker:
@@ -20,6 +21,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    # Tickets service
     - image: gagandeep39/ticket-booking-tickets
       context: tickets
       docker:
@@ -28,6 +30,16 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    # Orders Service
+    - image: gagandeep39/ticket-booking-orders
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    # Frontend code
     - image: gagandeep39/ticket-booking-client
       context: client
       docker:
