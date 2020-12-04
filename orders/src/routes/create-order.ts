@@ -7,11 +7,13 @@
  */
 import { requireAuth, validateRequest } from '@gagan-personal/common';
 import express, { NextFunction, Request, Response } from 'express';
+import { createOrderValidator } from '../validators/create-order';
 const router = express.Router();
 
 router.post(
   '/api/orders',
   requireAuth,
+  createOrderValidator,
   validateRequest,
   (req: Request, res: Response, next: NextFunction) => {}
 );
