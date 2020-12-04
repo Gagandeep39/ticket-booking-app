@@ -22,6 +22,8 @@ spec:
           env:
             - name: MONGO_URI
               value: mongodb://tickets-mongo-srv:27017/tickets
+            - name: NATS_URI
+              value: nats-srv
             - name: JWT_KEY
               valueFrom:
                   secretKeyRef:
