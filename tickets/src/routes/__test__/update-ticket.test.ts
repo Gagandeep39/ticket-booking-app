@@ -8,6 +8,7 @@
 import mongoose from 'mongoose';
 import request from 'supertest';
 import { app } from '../../app';
+import { natsWrapper } from '../../config/nats-wrapper';
 
 it('Return 404, if the provideed ID doesnt exist', async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
@@ -97,4 +98,27 @@ it('Updates ticket, if input is valid', async () => {
     .then((response) => {
       expect(response.status).toEqual(200);
     });
+});
+
+it('Publishes an Event', async () => {
+  const cookie = global.signIn();
+  const response = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', cookie)
+    .send({
+      title: 'Ticket',
+      price: 99,
+    });
+  expect(response.status).toEqual(201);
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({
+      title: 'Correct title',
+      price: 999,
+    })
+    .then((response) => {
+      expect(response.status).toEqual(200);
+    });
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
