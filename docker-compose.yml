@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  npm:
+    image: node:15.3.0-alpine3.12
+    # Below 2 commands are substitue to creating our own utility docker image
+    # docker-compose run --rm -v ${pwd}:/app npm <command>
+    # Linux ${pwd} must be replced with $(pwd)
+    # -v, -f must be specified i running from subdirectory
+    # docker-compose -f ../docker-compose.yml run --rm -v $(pwd):/app npm init    
+    working_dir: /app
+    entrypoint: ['npm']
