@@ -13,6 +13,10 @@ import 'express-async-errors';
 
 import { currentUser, errorHandler } from '@gagan-personal/common';
 import { NotFoundError } from '@gagan-personal/common';
+import { createOrderRouter } from './routes/create-order';
+import { fetchOrderRouter } from './routes/fetch-order';
+import { fetchAllOrdersRouter } from './routes/fetch-all-orders';
+import { deleteOrderRouter } from './routes/delete-order';
 const app = express();
 
 // app.set('trust-proxy', true); // Used for https
@@ -29,6 +33,11 @@ app.use(
 app.use(currentUser);
 
 // Ticket related routes
+app.use(createOrderRouter);
+app.use(fetchOrderRouter);
+app.use(fetchAllOrdersRouter);
+app.use(deleteOrderRouter);
+
 app.all('*', async () => {
   throw new NotFoundError();
 });
