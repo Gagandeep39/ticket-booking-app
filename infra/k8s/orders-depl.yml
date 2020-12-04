@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders
+  template:
+    metadata:
+      labels:
+        app: orders
+    spec:
+      containers:
+        - name: orders
+          image: gagandeep39/ticket-booking-orders
+          resources:
+            limits:
+              memory: '200Mi'
+              cpu: '350m'
+          env:
+            - name: MONGO_URI
+              value: mongodb://orders-mongo-srv:27017/orders
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              # Can be any name
+              value: ticketing
+            - name: NATS_CLIENT_ID
+              # Provides deployment name to client id environement
+              valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.name
+            - name: JWT_KEY
+              valueFrom:
+                  secretKeyRef:
+                    key: JWT_KEY
+                    name: jwt-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-srv
+spec:
+  selector:
+    app: orders
+  ports:
+    - name: orders-srv-clusterip-port
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
