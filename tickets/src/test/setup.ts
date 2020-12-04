@@ -23,6 +23,8 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  // Ensures nats is initliazed for everytest
+  jest.clearAllMocks();
   await mongoose.connection.db.collections().then((collections) => {
     collections.forEach(async (collec) => await collec.deleteMany({}));
   });
