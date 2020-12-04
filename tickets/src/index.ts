@@ -9,8 +9,14 @@ import dotenv from 'dotenv';
 
 import { connectDB } from './config/db';
 import { app } from './app';
+import { natsWrapper } from './config/nats-wrapper';
 
 dotenv.config();
+natsWrapper
+  .connect('ticketing', 'asxds', `http://${process.env.NATS_URI}:4222`)
+  .catch((error) => {
+    throw new Error('Error Connecting to NAT');
+  });
 connectDB();
 
 const PORT = process.env.PORT || 3000;
