@@ -11,6 +11,7 @@ import mongoose from 'mongoose';
 import { Ticket } from '../../models/ticket';
 import { Order } from '../../models/order';
 import { OrderStatus } from '@gagan-personal/common';
+import { natsWrapper } from '../../config/nats-wrapper';
 
 it('Retunrs Error if ticket doesnt exist', async () => {
   const ticketId = mongoose.Types.ObjectId();
@@ -64,4 +65,19 @@ it('Reserve a ticket', async () => {
     });
 });
 
-it.todo('Emit an order created event')
+it('Emit an order created event', async () => {
+  // Insert tick and create order
+  const ticket = Ticket.build({
+    price: 20,
+    title: 'Dummy',
+  });
+  await ticket.save();
+  await request(app)
+    .post('/api/orders')
+    .set('Cookie', global.signIn())
+    .send({ ticketId: ticket.id })
+    .then((response) => {
+      expect(response.status).toEqual(201);
+      expect(natsWrapper.client.publish).toHaveBeenCalled();
+    });
+});

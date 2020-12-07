@@ -5,7 +5,7 @@
  * @modify date 2020-12-03 18:20:34
  * @desc [description]
  */
-import { Subject } from './subject';
+import { Subject } from '../models/subject';
 
 export interface TicketCreatedEvent {
   subject: Subject.TicketCreated;
