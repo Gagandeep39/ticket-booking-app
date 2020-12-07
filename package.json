@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Ticket Booking application with Microservice Architecture",
   "scripts": {
-    "postinstall": "(cd auth && npm install); (cd client && npm install); (cd common && npm install); (cd nats-demo && npm install); (cd orders && npm install); (cd tickets && npm install)"
+    "postinstall": "(cd auth && npm install); (cd client && npm install); (cd common && npm install); (cd nats-demo && npm install); (cd orders && npm install); (cd tickets && npm install)",
+    "test": "(cd auth && npm test); (cd orders && npm test); (cd tickets && npm test)"
   },
   "repository": {
     "type": "git",
