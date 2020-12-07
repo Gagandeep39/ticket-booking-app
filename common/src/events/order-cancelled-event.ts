@@ -14,7 +14,6 @@ export interface OrderCancelledEvent {
   subject: Subject.OrderCancelled;
   data: {
     id: string;
-    expiresAt: string;
     ticket: {
       id: string;
     };
