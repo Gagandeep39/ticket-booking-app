@@ -1,6 +1,6 @@
 {
   "name": "@gagan-personal/common",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Cmmon Authentication related code",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
