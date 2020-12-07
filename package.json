@@ -1,0 +1,19 @@
+{
+  "name": "ticket-booking-app",
+  "version": "1.0.0",
+  "description": "Ticket Booking application with Microservice Architecture",
+  "scripts": {
+    "postinstall": "(cd auth && npm install); (cd client && npm install); (cd common && npm install); (cd nats-demo && npm install); (cd orders && npm install); (cd tickets && npm install)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gagandeep39/ticket-booking-app.git"
+  },
+  "keywords": [],
+  "author": "Gagandeep Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gagandeep39/ticket-booking-app/issues"
+  },
+  "homepage": "https://github.com/Gagandeep39/ticket-booking-app#readme"
+}
