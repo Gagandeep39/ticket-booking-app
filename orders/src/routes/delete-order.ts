@@ -5,15 +5,35 @@
  * @modify date 2020-12-04 18:13:32
  * @desc Delete Order route
  */
-import { requireAuth, validateRequest } from '@gagan-personal/common';
+import {
+  NotAuthorizedError,
+  NotFoundError,
+  OrderStatus,
+  requireAuth,
+} from '@gagan-personal/common';
 import express, { NextFunction, Request, Response } from 'express';
+import { Order } from '../models/order';
 const router = express.Router();
 
 router.delete(
-  '/api/orders',
+  '/api/orders/:id',
   requireAuth,
-  validateRequest,
-  (req: Request, res: Response, next: NextFunction) => {}
+  (req: Request, res: Response, next: NextFunction) => {
+    Order.findById(req.params.id)
+      .populate('ticket') // Fetch ticket for each order
+      .then((order) => {
+        if (!order) throw new NotFoundError();
+        if (order.userId !== req.currentUser!.id)
+          throw new NotAuthorizedError();
+
+        order.status = OrderStatus.Cancelled;
+        order
+          .save()
+          .then((updatedOrder) => res.status(204).send(updatedOrder))
+          .catch((error) => next(error));
+      })
+      .catch((error) => next(error));
+  }
 );
 
 export { router as deleteOrderRouter };
