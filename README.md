@@ -1,6 +1,10 @@
 # Ticket Booking App
 
 - [Ticket Booking App](#ticket-booking-app)
+  - [Setup](#setup)
+    - [Installing dependencies](#installing-dependencies)
+    - [Running tests](#running-tests)
+    - [Local deployment](#local-deployment)
   - [Features](#features)
   - [Resources](#resources)
     - [User table](#user-table)
@@ -36,6 +40,24 @@
   - [Extra Tools](#extra-tools)
   - [Manually writing Mock Libraries](#manually-writing-mock-libraries)
   - [Note](#note)
+
+## Setup
+
+### Installing dependencies
+
+- In Root directory run `npm run postinstall`
+
+### Running tests
+
+- In Root directory run `npm run test` **NOTE** Tests will fail inside docker container
+
+### Local deployment
+
+1. Run `kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.40.2/deploy/static/provider/cloud/deploy.yaml`
+2. `skaffold run` or go to `infra/k8s`and run `kubectl apply -f .`
+3. Access frontend at `localhost:80`
+
+- Refer the [Readme](infra/k8s/README.md) for more info
 
 ## Features
 
