@@ -54,7 +54,6 @@ router.post(
           .catch((error) => next(error));
       })
       .catch((error) => next(error));
-    res.send({});
   }
 );
 
