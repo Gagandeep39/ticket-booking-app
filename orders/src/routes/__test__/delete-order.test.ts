@@ -10,6 +10,7 @@ import request from 'supertest';
 import { Ticket } from '../../models/ticket';
 import { Order } from '../../models/order';
 import { OrderStatus } from '@gagan-personal/common';
+import { natsWrapper } from '../../config/nats-wrapper';
 
 it('Mark an Order as cancelled', async () => {
   // Creat ticket
@@ -42,4 +43,32 @@ it('Mark an Order as cancelled', async () => {
   });
 });
 
-it.todo('Emit an Order Cancelled Event');
+it('Emit an Order Cancelled Event', async () => {
+  // Creat ticket
+  const ticket = Ticket.build({
+    price: 99,
+    title: 'Monsters',
+  });
+  await ticket.save();
+  const user = global.signIn();
+  // Make request to create order
+  const { body: order } = await request(app)
+    .post('/api/orders')
+    .set('Cookie', user)
+    .send({ ticketId: ticket.id })
+    .then((response) => {
+      expect(response.status).toEqual(201);
+      return response;
+    });
+  // Make request to cancel order
+  await request(app)
+    .delete(`/api/orders/${order.id}`)
+    .set('Cookie', user)
+    .then((response) => {
+      // Validate response
+      expect(response.status).toEqual(204);
+      expect(natsWrapper.client.publish).toHaveBeenCalled()
+    });
+});
+
+// it.todo('Placeholder for documentation purpose')
