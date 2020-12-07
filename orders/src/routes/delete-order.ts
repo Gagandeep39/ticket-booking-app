@@ -12,6 +12,8 @@ import {
   requireAuth,
 } from '@gagan-personal/common';
 import express, { NextFunction, Request, Response } from 'express';
+import { natsWrapper } from '../config/nats-wrapper';
+import { OrderCancelledPublisher } from '../events/order-cancelled-publisher';
 import { Order } from '../models/order';
 const router = express.Router();
 
@@ -29,7 +31,15 @@ router.delete(
         order.status = OrderStatus.Cancelled;
         order
           .save()
-          .then((updatedOrder) => res.status(204).send(updatedOrder))
+          .then((updatedOrder) => {
+            new OrderCancelledPublisher(natsWrapper.client).publish({
+              id: order.id,
+              ticket: {
+                id: order.ticket.id,
+              },
+            });
+            return res.status(204).send(updatedOrder);
+          })
           .catch((error) => next(error));
       })
       .catch((error) => next(error));
