@@ -29,8 +29,6 @@ export * from './middlewares/validate-request';
  */
 export * from './models/event';
 export * from './models/subject';
-export * from './models/ticket-created-event';
-export * from './models/ticket-updated-event';
 export * from './models/order-status';
 
 /**
@@ -38,3 +36,5 @@ export * from './models/order-status';
  */
 export * from './events/custom-listener';
 export * from './events/custom-publisher';
+export * from './events/ticket-created-event';
+export * from './events/ticket-updated-event';
