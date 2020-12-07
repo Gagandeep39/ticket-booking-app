@@ -15,14 +15,22 @@ spec:
     - host: localhost # Can be anything gagan.lol, abc.xyz etc.
       http:
         paths:
+            # Auth Route
           - path: /api/users/?(.*)
             backend:
               serviceName: auth-srv
               servicePort: 3000
+            # Tickets Route
           - path: /api/tickets/?(.*)
             backend:
               serviceName: tickets-srv
               servicePort: 3000
+            # Orders route Route
+          - path: /api/orders/?(.*)
+            backend:
+              serviceName: orders-srv
+              servicePort: 3000
+            # Frotnend client Route
           - path: /?(.*)
             backend:
               serviceName: client-srv
