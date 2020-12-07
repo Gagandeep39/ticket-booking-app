@@ -1,8 +1,8 @@
 # Note: You can use any Debian/Ubuntu based image you want. 
-FROM mcr.microsoft.com/vscode/devcontainers/base:buster
+FROM debian:buster
 
 # Options
-ARG INSTALL_ZSH="true"
+ARG INSTALL_ZSH="false"
 ARG UPGRADE_PACKAGES="false"
 ARG ENABLE_NONROOT_DOCKER="true"
 ARG SOURCE_SOCKET=/var/run/docker-host.sock
@@ -48,6 +48,8 @@ RUN chown ${USERNAME}:root /usr/local/share/copy-kube-config.sh \
 ##############################################################
 # run the installation script  
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
+
+ENV SHELL /bin/zsh
 
 # install powerlevel10k
 RUN git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
