@@ -13,6 +13,8 @@ import {
   validateRequest,
 } from '@gagan-personal/common';
 import express, { NextFunction, Request, Response } from 'express';
+import { natsWrapper } from '../config/nats-wrapper';
+import { OrderCreatedPublisher } from '../events/order-created-publisher';
 import { Order } from '../models/order';
 import { Ticket } from '../models/ticket';
 import { createOrderValidator } from '../validators/create-order';
@@ -50,7 +52,20 @@ router.post(
           ticket: ticket,
         })
           .save()
-          .then((createdOrder) => res.status(201).send(createdOrder))
+          .then((createdOrder) => {
+            // Publish an Order Creatd event
+            new OrderCreatedPublisher(natsWrapper.client).publish({
+              id: createdOrder.id,
+              expiresAt: createdOrder.expiresAt.toISOString(),
+              status: createdOrder.status,
+              userId: createdOrder.userId,
+              ticket: {
+                id: ticket.id,
+                price: ticket.price,
+              },
+            });
+            return res.status(201).send(createdOrder);
+          })
           .catch((error) => next(error));
       })
       .catch((error) => next(error));
