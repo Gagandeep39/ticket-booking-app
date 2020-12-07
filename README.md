@@ -110,6 +110,15 @@
 ### Orders Servce
 
 - Create/ Updaet order
+- Everything related to user
+- Sign up/ sign in/ sing out
+
+| Route             | Method | Body                                | Description                     |
+| ----------------- | ------ | ----------------------------------- | ------------------------------- |
+| `/api/orders`     | GET    | `{email: String, password: String}` | Retriebe all order for user     |
+| `/api/orders/:id` | GET    | `{email: String, password: String}` | Get details bout specific user  |
+| `/api/orders`     | POST   | `{ticketId: string}`                | Create rder for specific ticket |
+| `/api/orders/:id` | DELETE | `-`                                 | Cancel order                    |
 
 ### Expiration
 
