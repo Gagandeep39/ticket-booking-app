@@ -63,3 +63,5 @@ it('Reserve a ticket', async () => {
       expect(response.status).toEqual(201);
     });
 });
+
+it.todo('Emit an order created event')
