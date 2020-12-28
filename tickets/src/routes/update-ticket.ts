@@ -6,6 +6,7 @@
  * @desc Update Tickets
  */
 import {
+  BadRequestError,
   NotAuthorizedError,
   NotFoundError,
   requireAuth,
@@ -29,6 +30,10 @@ router.put(
     Ticket.findById(req.params.id)
       .then((existingTicket) => {
         if (!existingTicket) throw new NotFoundError();
+
+        if (existingTicket.orderId)
+          throw new BadRequestError('Cannot edit a reserved ticket');
+
         if (existingTicket.userId !== req.currentUser?.id)
           throw new NotAuthorizedError();
 
