@@ -20,7 +20,7 @@ export class TicketCreatedListener extends CustomListener<TicketCreatedEvent> {
 
   async onMessage(data: TicketCreatedEvent['data'], msg: Message) {
     const { id, title, price } = data;
-    const ticket = await Ticket.build({ id, title, price }).save();
+    await Ticket.build({ id, title, price }).save();
 
     // Streaming service gets an acknowledgement
     msg.ack();
