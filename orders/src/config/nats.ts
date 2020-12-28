@@ -5,6 +5,8 @@
  * @modify date 2020-12-04 16:41:33
  * @desc [description]
  */
+import { TicketCreatedListener } from '../events/ticket-created-listener';
+import { TicketUpdatedListener } from '../events/ticket-updated-listener';
 import { natsWrapper } from './nats-wrapper';
 
 const connectNAT = () => {
@@ -28,6 +30,10 @@ const connectNAT = () => {
   });
   process.on('SIGINT', () => natsWrapper.client.close());
   process.on('SIGTERM', () => natsWrapper.client.close());
+
+  // Ticket listeners
+  new TicketCreatedListener(natsWrapper.client).listen();
+  new TicketUpdatedListener(natsWrapper.client).listen();
 };
 
 export { connectNAT };
