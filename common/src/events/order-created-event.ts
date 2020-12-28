@@ -14,6 +14,7 @@ export interface OrderCreatedEvent {
     id: string;
     status: OrderStatus;
     userId: string;
+    version: number;
     // To prevent conversion from date to string repetedly as it will be sent through json
     expiresAt: string;
     ticket: {
