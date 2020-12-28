@@ -1,4 +1,4 @@
-FROM node:alpine3.12
+FROM node:lts-alpine3.12
 LABEL mantainer="singh.gagandeep3911@gmail.com"
 
 WORKDIR /app
