@@ -14,6 +14,7 @@ import {
 import { Message } from 'node-nats-streaming';
 import { queueGroupName } from '../../constants/queue-groups';
 import { Ticket } from '../../models/tickets';
+import { TicketUpdatedPublisher } from '../publishers/ticket-updated-publisher';
 
 export class OrderCreatedListener extends CustomListener<OrderCreatedEvent> {
   subject: Subject.OrderCreated = Subject.OrderCreated;
@@ -29,6 +30,15 @@ export class OrderCreatedListener extends CustomListener<OrderCreatedEvent> {
     ticket.set({ orderId: data.id });
     // Save ticket
     await ticket.save();
+    // Client is avaiblae from BasePublisher class
+    await new TicketUpdatedPublisher(this.client).publish({
+      id: ticket.id,
+      price: ticket.price,
+      title: ticket.title,
+      version: ticket.version,
+      userId: ticket.userId,
+      orderId: ticket.orderId,
+    });
     // Ack the message
     msg.ack();
   }
