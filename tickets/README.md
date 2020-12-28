@@ -35,9 +35,11 @@
 - `mongoose`,` @types/mongoose` Data persistencen management library
 - `cookie-session`, `@types/cookie-session` To manage cookies on server side
 - `jsonwebtoken`, `@types/jsonwebtoken` Generate and verify token
+- `mongoose-update-if-current` Adds versioning to enures concurrency
 
 ### Dev Dependencies (Mostly testing)
-- `@types/jest`,  `jest`, `ts-jest` 
+
+- `@types/jest`, `jest`, `ts-jest`
 - `@types/supertest`, `supertest`
 - `mongodb-memory-server`
 
@@ -46,4 +48,3 @@
 - `DatabaseConnectionError` Error raised when db connection fails
 - `RequestValidationError` Invalid Data
 - `NotFoundError` - Invalid route
-
