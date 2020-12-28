@@ -11,7 +11,7 @@ import { Event } from '../models/event';
 export abstract class CustomListener<T extends Event> {
   abstract subject: T['subject'];
   abstract queueGroupName: string;
-  private client: Stan;
+  protected client: Stan;
   protected ackWait = 5 * 1000;
   abstract onMessage(parsedData: T['data'], msg: Message): void;
 

@@ -10,7 +10,7 @@ import { Event } from '../models/event';
 
 export abstract class CustomPublisher<T extends Event> {
   abstract subject: T['subject'];
-  private client: Stan;
+  protected client: Stan;
 
   constructor(client: Stan) {
     this.client = client;
