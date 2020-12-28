@@ -11,12 +11,14 @@ import { Ticket } from '../../models/ticket';
 import { Order } from '../../models/order';
 import { OrderStatus } from '@gagan-personal/common';
 import { natsWrapper } from '../../config/nats-wrapper';
+import mongoose from 'mongoose';
 
 it('Mark an Order as cancelled', async () => {
   // Creat ticket
   const ticket = Ticket.build({
     price: 99,
     title: 'Monsters',
+    id: mongoose.Types.ObjectId().toHexString(),
   });
   await ticket.save();
   const user = global.signIn();
@@ -48,6 +50,7 @@ it('Emit an Order Cancelled Event', async () => {
   const ticket = Ticket.build({
     price: 99,
     title: 'Monsters',
+    id: mongoose.Types.ObjectId().toHexString(),
   });
   await ticket.save();
   const user = global.signIn();
@@ -67,7 +70,7 @@ it('Emit an Order Cancelled Event', async () => {
     .then((response) => {
       // Validate response
       expect(response.status).toEqual(204);
-      expect(natsWrapper.client.publish).toHaveBeenCalled()
+      expect(natsWrapper.client.publish).toHaveBeenCalled();
     });
 });
 

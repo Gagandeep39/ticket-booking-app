@@ -8,12 +8,14 @@
 import { app } from '../../app';
 import request from 'supertest';
 import { Ticket } from '../../models/ticket';
+import mongoose from 'mongoose';
 
 it('Fetch Order', async () => {
   // Crate ticket
   const ticket = Ticket.build({
     price: 99,
     title: 'Monsters',
+    id: mongoose.Types.ObjectId().toHexString(),
   });
   await ticket.save();
   const user = global.signIn();
@@ -41,6 +43,7 @@ it('Returns error if user fetches order of another user', async () => {
   const ticket = Ticket.build({
     price: 99,
     title: 'Monsters',
+    id: mongoose.Types.ObjectId().toHexString(),
   });
   await ticket.save();
   const user = global.signIn();

@@ -8,6 +8,7 @@
 import { app } from '../../app';
 import request from 'supertest';
 import { Ticket } from '../../models/ticket';
+import mongoose from 'mongoose';
 
 it('Fetch Orders for particular User', async () => {
   const ticketOne = await buildTicket();
@@ -58,5 +59,6 @@ const buildTicket = () => {
   return Ticket.build({
     title: 'Dummy',
     price: 99,
+    id: mongoose.Types.ObjectId().toHexString(),
   }).save();
 };

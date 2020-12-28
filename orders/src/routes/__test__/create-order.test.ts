@@ -29,6 +29,7 @@ it('Retunrs Error if ticket reserved', async () => {
   const ticket = Ticket.build({
     price: 20,
     title: 'Dummy',
+    id: mongoose.Types.ObjectId().toHexString(),
   });
   await ticket.save();
   const order = Order.build({
@@ -54,6 +55,7 @@ it('Reserve a ticket', async () => {
   const ticket = Ticket.build({
     price: 20,
     title: 'Dummy',
+    id: mongoose.Types.ObjectId().toHexString(),
   });
   await ticket.save();
   await request(app)
@@ -70,6 +72,7 @@ it('Emit an order created event', async () => {
   const ticket = Ticket.build({
     price: 20,
     title: 'Dummy',
+    id: mongoose.Types.ObjectId().toHexString(),
   });
   await ticket.save();
   await request(app)
