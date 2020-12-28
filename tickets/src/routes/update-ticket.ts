@@ -41,6 +41,7 @@ router.put(
               price: updatedTicket.price,
               title: updatedTicket.title,
               userId: updatedTicket.userId,
+              version: updatedTicket.version,
             });
             res.send(updatedTicket);
           })
