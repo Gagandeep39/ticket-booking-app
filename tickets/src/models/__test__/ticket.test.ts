@@ -24,3 +24,16 @@ it('Implement Concurrency control', async (done) => {
     return done();
   }
 });
+
+it('Increment version number on save', async () => {
+  const ticket = await Ticket.build({
+    title: 'Dummy',
+    price: 1999,
+    userId: '123',
+  }).save();
+  expect(ticket.version).toEqual(0);
+  await ticket.save();
+  expect(ticket.version).toEqual(1);
+  await ticket.save();
+  expect(ticket.version).toEqual(2);
+});
