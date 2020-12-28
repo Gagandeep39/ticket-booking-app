@@ -21,10 +21,8 @@ export class TicketUpdatedListener extends CustomListener<TicketUpdatedEvent> {
   async onMessage(data: TicketUpdatedEvent['data'], msg: Message) {
     const { title, price } = data;
 
-    const ticket = await Ticket.findOne({
-      _id: data.id,
-      version: data.version - 1,
-    });
+    const ticket = await Ticket.findByEvent(data);
+
     if (!ticket) throw new Error('Ticket not found');
     await ticket.set({ title, price }).save();
     msg.ack();
