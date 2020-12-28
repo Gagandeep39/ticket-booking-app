@@ -6,6 +6,7 @@
  * @desc Tickets model
  */
 import mongoose from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 /**
  * MOdel to create ticket
@@ -23,6 +24,7 @@ interface TicketDoc extends mongoose.Document {
   title: string;
   price: number;
   userId: string;
+  version: number;
 }
 
 /**
@@ -56,6 +58,10 @@ const ticketSchema = new mongoose.Schema(
     },
   }
 );
+
+// Add version plugin
+ticketSchema.set('versionKey', 'version');
+ticketSchema.plugin(updateIfCurrentPlugin);
 
 ticketSchema.statics.build = (attr: TicketAttrs) => {
   return new Ticket(attr);
