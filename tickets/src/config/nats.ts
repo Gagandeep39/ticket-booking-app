@@ -5,6 +5,8 @@
  * @modify date 2020-12-04 14:39:00
  * @desc [description]
  */
+import { OrderCancelledListener } from '../events/subscribers/order-cancelled-listener';
+import { OrderCreatedListener } from '../events/subscribers/order-created-listener';
 import { natsWrapper } from './nats-wrapper';
 
 const connectNAT = () => {
@@ -28,6 +30,9 @@ const connectNAT = () => {
   });
   process.on('SIGINT', () => natsWrapper.client.close());
   process.on('SIGTERM', () => natsWrapper.client.close());
+
+  new OrderCreatedListener(natsWrapper.client).listen();
+  new OrderCancelledListener(natsWrapper.client).listen();
 };
 
 export { connectNAT };
