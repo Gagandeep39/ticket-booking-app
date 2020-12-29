@@ -18,7 +18,7 @@ spec:
           resources:
             limits:
               memory: '200Mi'
-              cpu: '350m'
+              cpu: '300m'
           env:
             - name: MONGO_URI
               value: mongodb://orders-mongo-srv:27017/orders
@@ -30,13 +30,13 @@ spec:
             - name: NATS_CLIENT_ID
               # Provides deployment name to client id environement
               valueFrom:
-                  fieldRef:
-                    fieldPath: metadata.name
+                fieldRef:
+                  fieldPath: metadata.name
             - name: JWT_KEY
               valueFrom:
-                  secretKeyRef:
-                    key: JWT_KEY
-                    name: jwt-secret
+                secretKeyRef:
+                  key: JWT_KEY
+                  name: jwt-secret
 
 ---
 apiVersion: v1
