@@ -48,3 +48,12 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
+    # Frontend code
+    - image: gagandeep39/ticket-booking-expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
