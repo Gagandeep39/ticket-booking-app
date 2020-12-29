@@ -9,13 +9,13 @@ import { TicketCreatedListener } from '../events/ticket-created-listener';
 import { TicketUpdatedListener } from '../events/ticket-updated-listener';
 import { natsWrapper } from './nats-wrapper';
 
-const connectNAT = () => {
+const connectNAT = async () => {
   if (!process.env.NATS_CLUSTER_ID)
     throw new Error('Cluster ID ENV var required');
   if (!process.env.NATS_CLIENT_ID)
     throw new Error('NATS Client ID ENV var required ');
   if (!process.env.NATS_URL) throw new Error('NATS URL ENV required');
-  natsWrapper
+  await natsWrapper
     .connect(
       process.env.NATS_CLUSTER_ID,
       process.env.NATS_CLIENT_ID,
