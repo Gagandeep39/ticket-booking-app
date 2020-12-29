@@ -1,0 +1,8 @@
+### Create Order
+
+POST http://localhost/api/orders
+Content-Type: application/json
+
+{
+  "ticketId": "5feacf30c6f9cf001aea0e22"
+}
