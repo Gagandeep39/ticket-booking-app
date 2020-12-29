@@ -16,8 +16,6 @@ const expirationQueue = new Queue<Payload>('order:expiration', {
 
 expirationQueue.process(async (job) => {
   console.log('Publishing an expiration:complete event', job.data.orderId);
-
-  console.log(job);
 });
 
 export { expirationQueue };
