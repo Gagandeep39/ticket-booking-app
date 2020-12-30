@@ -6,4 +6,4 @@
 ## Description
 
 - Used to manage payment
-- Triggered when an order is created
+- Triggered when an order is created or cancelled
