@@ -9,7 +9,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
-jest.mock('../config/nats-wrapper.ts')
+jest.mock('../config/nats-wrapper.ts');
 let mongo: MongoMemoryServer;
 
 beforeAll(async () => {
@@ -40,15 +40,15 @@ afterAll(() => {
 declare global {
   namespace NodeJS {
     interface Global {
-      signIn(): string[];
+      signIn(id?: string): string[];
     }
   }
 }
 
-global.signIn = () => {
+global.signIn = (id?: string) => {
   //Build JWT Payload
   const payload = {
-    id: new mongoose.Types.ObjectId().toHexString(),
+    id: id || new mongoose.Types.ObjectId().toHexString(),
     email: 'test@mail.com',
   };
 
