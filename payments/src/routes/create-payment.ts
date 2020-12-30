@@ -16,6 +16,7 @@ import {
 import express, { NextFunction, Request, Response } from 'express';
 import { stripe } from '../config/stripe';
 import { Order } from '../models/order';
+import { Payment } from '../models/payment';
 import { createPaymentsValidator } from '../validators/create-payment';
 const router = express.Router();
 
@@ -32,15 +33,16 @@ router.post(
     if (order.userId !== req.currentUser?.id) throw new NotAuthorizedError();
     if (order.status === OrderStatus.Cancelled)
       throw new BadRequestError('Order already cancelled');
-    await stripe.charges
-      .create({
-        currency: 'inr',
-        amount: order.price * 100,
-        source: token, // Use dummy token: 'tok_visa' for testing
-      })
-      .then((res) => console.log(res))
-      .catch((err) => next(err));
-
+    const charge = await stripe.charges.create({
+      currency: 'inr',
+      amount: order.price * 100,
+      source: token, // Use dummy token: 'tok_visa' for testing
+    });
+    // .catch((err) => next(err));
+    await Payment.build({
+      orderId,
+      stripeId: charge.id,
+    }).save();
     res.sendStatus(201).send({ success: true });
   }
 );
