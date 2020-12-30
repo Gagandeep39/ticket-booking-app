@@ -14,7 +14,9 @@ import {
   validateRequest,
 } from '@gagan-personal/common';
 import express, { NextFunction, Request, Response } from 'express';
+import { natsWrapper } from '../config/nats-wrapper';
 import { stripe } from '../config/stripe';
+import { PaymentCreatedPublisher } from '../events/publishers/payment-created-publisher';
 import { Order } from '../models/order';
 import { Payment } from '../models/payment';
 import { createPaymentsValidator } from '../validators/create-payment';
@@ -48,9 +50,16 @@ router.post(
       stripeId: charge.id,
     })
       .save()
+      .then((payment) => {
+        new PaymentCreatedPublisher(natsWrapper.client).publish({
+          id: payment.id,
+          orderId: payment.orderId,
+          stripeId: payment.stripeId,
+        });
+        return res.sendStatus(201).send({ id: payment.id });
+      })
       .catch((err) => {});
-
-    res.sendStatus(201).send({ success: true });
+    // res.sendStatus(201).send({ success: true });
   }
 );
 
