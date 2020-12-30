@@ -19,7 +19,7 @@ export class OrderCreatedListener extends CustomListener<OrderCreatedEvent> {
   queueGroupName: string = queueGroupName;
 
   async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
-    const order = await Order.build({
+    await Order.build({
       id: data.id,
       price: data.ticket.price,
       status: data.status,
