@@ -18,7 +18,7 @@ spec:
           resources:
             limits:
               memory: '300Mi'
-              cpu: '350m'
+              cpu: '300m'
           env:
             - name: INGRESS_URI
               value: ingress-nginx-controller.ingress-nginx.svc.cluster.local

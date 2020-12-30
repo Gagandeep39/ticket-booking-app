@@ -19,7 +19,7 @@ import { Order } from '../models/order';
 import { Ticket } from '../models/ticket';
 import { createOrderValidator } from '../validators/create-order';
 const router = express.Router();
-const EXPIRATION_WINDOW_MINUTE = 15 * 60; // 15min
+const EXPIRATION_WINDOW_MINUTE = process.env.EXPIRATION_WINDOW_MINUTE || 60; // 15min
 
 router.post(
   '/api/orders',
@@ -41,7 +41,7 @@ router.post(
         // Calculate an expiration date
         const expiration = new Date();
         expiration.setSeconds(
-          expiration.getSeconds() + EXPIRATION_WINDOW_MINUTE
+          expiration.getSeconds() + +EXPIRATION_WINDOW_MINUTE
         );
 
         // Build order and ave to database
