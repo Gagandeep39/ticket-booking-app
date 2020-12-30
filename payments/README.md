@@ -3,6 +3,8 @@
 - [Payment Service](#payment-service)
   - [Description](#description)
   - [Stripe JS Library flow](#stripe-js-library-flow)
+  - [Stripe setup](#stripe-setup)
+  - [Mock tests](#mock-tests)
 
 ## Description
 
@@ -17,3 +19,16 @@
 4. We will send the token to payment service
 5. Create a pyment object with amount
 6. Send a request to Spripe API from payment service using token
+
+## Stripe setup
+
+- Install stripe SDK `npm install --save stripe`
+- Create account at <https://stripe.com/en-in>and validate email address
+- Go to dashboard -> Developer -> API Key
+- Create secret key and update the screts in env (In kubernetes if deployed using kubernetes)
+- Refer [docs](https://stripe.com/docs/api) for more info
+
+## Mock tests
+
+- Mock can be created by creating a folder `__mock__` and a file name same as actual file name inside it
+- Dont forget to initilize using jest('./path/to/actual/class')
