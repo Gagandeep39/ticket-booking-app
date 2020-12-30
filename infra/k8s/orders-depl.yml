@@ -38,7 +38,7 @@ spec:
                   key: JWT_KEY
                   name: jwt-secret
             - name: EXPIRATION_WINDOW_MINUTE
-              value: 60
+              value: '60'
 
 ---
 apiVersion: v1
