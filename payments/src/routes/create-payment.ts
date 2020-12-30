@@ -60,7 +60,7 @@ router.post(
       orderId: payment.orderId,
       stripeId: payment.stripeId,
     });
-    return res.sendStatus(201).send({ id: payment.id });
+    res.sendStatus(201).send({ id: payment.id });
   }
 );
 
