@@ -10,10 +10,13 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
 jest.mock('../config/nats-wrapper.ts');
+jest.mock('../config/stripe.ts');
 let mongo: MongoMemoryServer;
 
 beforeAll(async () => {
   process.env.JWT_KEY = 'lonely';
+  // Not required as we ae not communicating with server ad only omcking
+  // process.env.STRIPE_SECRET_KEY = '';
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();
   await mongoose.connect(mongoUri, {
