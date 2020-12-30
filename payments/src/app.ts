@@ -13,6 +13,7 @@ import 'express-async-errors';
 
 import { currentUser, errorHandler } from '@gagan-personal/common';
 import { NotFoundError } from '@gagan-personal/common';
+import { createPaymentRouter } from './routes/create-payment';
 const app = express();
 
 // app.set('trust-proxy', true); // Used for https
@@ -28,7 +29,8 @@ app.use(
 // Check if user is logged In and set currentUser property
 app.use(currentUser);
 
-// Ticket related routes
+// Payment related routes
+app.use(createPaymentRouter);
 
 app.all('*', async () => {
   throw new NotFoundError();
