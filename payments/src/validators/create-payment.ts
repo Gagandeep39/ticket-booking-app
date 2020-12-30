@@ -9,5 +9,5 @@ import { body } from 'express-validator';
 
 export const createPaymentsValidator = [
   body('token').not().isEmpty().withMessage('Token Cannot be empty'),
-  body('price').not().isEmpty().withMessage('Order cannot be Empty'),
+  body('orderId').not().isEmpty().withMessage('Order cannot be Empty'),
 ];
