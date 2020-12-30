@@ -12,6 +12,7 @@ import mongoose from 'mongoose';
 import { Order } from '../../models/order';
 import { OrderStatus } from '@gagan-personal/common';
 import { stripe } from '../../config/stripe';
+import { Payment } from '../../models/payment';
 // jest.mock('../../config/stripe');
 
 it('Return 404 when order doesnt exist', async () => {
@@ -92,8 +93,6 @@ it('Returns 201 with valid inputs', async () => {
       orderId: order.id,
     })
     .then((response) => {
-      console.log(response.status);
-
       expect(response.status).toEqual(201);
     });
 
@@ -143,4 +142,9 @@ it('Returns 201 with valid inputs', async () => {
 //   );
 //   expect(stripeCharge).toBeDefined();
 //   expect(stripeChange?.currency).toEqual('inr');
+// const payment = Payment.findOne({
+//   orderId: order.id,
+//   stripeId: stripeChange?.id,
+// });
+// expect(payment).not.toBeNull();
 // });
