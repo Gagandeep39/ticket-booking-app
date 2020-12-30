@@ -45,21 +45,22 @@ router.post(
     // Charge will be null in tests if performed using mock
     // But wont fail because erro wil be caught
 
-    await Payment.build({
+    const payment = await Payment.build({
       orderId,
       stripeId: charge.id,
     })
       .save()
-      .then((payment) => {
-        new PaymentCreatedPublisher(natsWrapper.client).publish({
-          id: payment.id,
-          orderId: payment.orderId,
-          stripeId: payment.stripeId,
-        });
-        return res.sendStatus(201).send({ id: payment.id });
-      })
-      .catch((err) => {});
-    // res.sendStatus(201).send({ success: true });
+      .catch((err) => {
+        console.log(err);
+      });
+
+    if (!payment) throw new NotFoundError();
+    await new PaymentCreatedPublisher(natsWrapper.client).publish({
+      id: payment.id,
+      orderId: payment.orderId,
+      stripeId: payment.stripeId,
+    });
+    return res.sendStatus(201).send({ id: payment.id });
   }
 );
 
