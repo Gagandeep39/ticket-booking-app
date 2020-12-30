@@ -142,4 +142,5 @@ it('Returns 201 with valid inputs', async () => {
 //     (charge) => charge.amount === price * 100
 //   );
 //   expect(stripeCharge).toBeDefined();
+//   expect(stripeChange?.currency).toEqual('inr');
 // });
