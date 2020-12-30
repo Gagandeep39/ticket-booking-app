@@ -1,0 +1,8 @@
+### Create payment
+POST http://localhost/api/payments
+Content-Type: application/json
+
+{
+  "orderId": "5fec3afdc85356001ade256c",
+  "token": "tok_visa"
+}

@@ -1,0 +1,52 @@
+# Remove Port numbers while testng K8s deployments
+### Fetch Current User
+GET http://localhost/api/users/currentuser
+
+### Sign Up
+POST http://localhost/api/users/signup
+Content-Type: application/json
+
+{
+  "email": "singh.gagandeep3911@gmail.com",
+  "password": "123456"
+}
+
+### Sing In
+POST http://localhost/api/users/signin
+Content-Type: application/json
+
+{
+  "email": "singh.gagandeep3911@gmail.com",
+  "password": "123456"
+}
+
+### Sign Out
+POST http://localhost/api/users/signout
+
+### Create Ticket ##########################
+
+POST http://localhost/api/tickets
+Content-Type: application/json
+
+{
+  "title": "Dummy",
+  "price": "123"
+}
+
+### Create Order ############################
+
+POST http://localhost/api/orders
+Content-Type: application/json
+
+{
+  "ticketId": "5fec46c78f3bc3001a69f705"
+}
+
+### Create payment ############################
+POST http://localhost/api/payments
+Content-Type: application/json
+
+{
+  "orderId": "5fec3afdc85356001ade256c",
+  "token": "tok_visa"
+}
