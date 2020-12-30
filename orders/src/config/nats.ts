@@ -6,6 +6,7 @@
  * @desc [description]
  */
 import { ExpirationCompleteListener } from '../events/expiration-complete-listener';
+import { PaymentCreatedListener } from '../events/payment-created-listener';
 import { TicketCreatedListener } from '../events/ticket-created-listener';
 import { TicketUpdatedListener } from '../events/ticket-updated-listener';
 import { natsWrapper } from './nats-wrapper';
@@ -36,6 +37,7 @@ const connectNAT = async () => {
   new TicketCreatedListener(natsWrapper.client).listen();
   new TicketUpdatedListener(natsWrapper.client).listen();
   new ExpirationCompleteListener(natsWrapper.client).listen();
+  new PaymentCreatedListener(natsWrapper.client).listen();
 };
 
 export { connectNAT };
