@@ -15,10 +15,10 @@ spec:
       containers:
         - name: payments
           image: gagandeep39/ticket-booking-payments
-          resources:
-            limits:
-              memory: '200Mi'
-              cpu: '300m'
+          # resources:
+          #   limits:
+          #     memory: '200Mi'
+          #     cpu: '300m'
           env:
             - name: MONGO_URI
               value: mongodb://payments-mongo-srv:27017/payments

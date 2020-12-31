@@ -15,10 +15,10 @@ spec:
       containers:
         - name: client
           image: gagandeep39/ticket-booking-client
-          resources:
-            limits:
-              memory: '300Mi'
-              cpu: '300m'
+          # resources:
+          #   limits:
+          #     memory: '300Mi'
+          #     cpu: '300m'
           env:
             - name: NEXT_PUBLIC_INGRESS_URI
               value: ingress-nginx-controller.ingress-nginx.svc.cluster.local
