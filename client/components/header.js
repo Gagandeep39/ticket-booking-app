@@ -18,18 +18,18 @@ const Header = ({ currentUser }) => {
     .filter((linkConfig) => linkConfig) // Returns true values
     .map(({ label, href }) => (
       <li key={href}>
-        <Link href='/' key={href} className='nav-item'>
-          <a className='nav-link'> {label} </a>
+        <Link href={href} key={href} className="nav-item">
+          <a className="nav-link"> {label} </a>
         </Link>{' '}
       </li>
     ));
   return (
-    <nav className='navbar navbar-light bg-light'>
-      <Link href='/'>
-        <a className='navbar-brand'> Ticket X </a>
+    <nav className="navbar navbar-light bg-light">
+      <Link href="/">
+        <a className="navbar-brand"> Ticket X </a>
       </Link>
-      <div className='d-flex justify-content-end'>
-        <ul className='nav d-flex align-items-center'>{links}</ul>
+      <div className="d-flex justify-content-end">
+        <ul className="nav d-flex align-items-center">{links}</ul>
       </div>
     </nav>
   );
