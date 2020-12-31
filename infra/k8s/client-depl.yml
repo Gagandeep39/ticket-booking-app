@@ -22,6 +22,8 @@ spec:
           env:
             - name: NEXT_PUBLIC_INGRESS_URI
               value: ingress-nginx-controller.ingress-nginx.svc.cluster.local
+            - name: NEXT_PUBLIC_STRIPE_PUBLIC_KEY
+              value: pk_test_51I3zWOI8py6Rj5ufY6RnJ1zjPK930I2xwWW0XKPWFr6cp7mAvgM8q8aoAV5R0trqmGEEqSgrLY6xVhZRqTsgZJqE00zW2TqkZa
 
 ---
 apiVersion: v1
