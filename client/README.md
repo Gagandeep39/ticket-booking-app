@@ -22,10 +22,11 @@
 
 ## Dependencies
 
-- `react `
-- `react-dom `
+- `react`
+- `react-dom`
 - `next`
 - `axios`
+- `react-stripe-checkout`
 
 ## NextJS
 
@@ -40,12 +41,14 @@
 - Main component can not have data loaded
 - Cannot use other react component inside getInitialProps
 
-## Issues with Server Side rendering 
+## Issues with Server Side rendering
 
 - Making Request from
+
 ```js
-ComponentName.getInitialProps = async () => {}
+ComponentName.getInitialProps = async () => {};
 ```
+
 - `getInitialProps` is executed on server sde before serving us the actual webpage asresponse
 
 1. Local host is the Gateway IP of kubernetes
@@ -54,7 +57,7 @@ ComponentName.getInitialProps = async () => {}
 4. When rquest is made from outside Kubernetes, proper mapping is performed by gateway
 5. When request is made from inside, no interaction is done with gateway, the client doesn;t know who must recieve this request
 
-### Solution 
+### Solution
 
 - Specify the Kubernetes `service-name` in URL eg. `http://auth-srv/api/users/currentuser`
   - Not a good practice
@@ -62,18 +65,21 @@ ComponentName.getInitialProps = async () => {}
   - We need to mae sure application is in same namespace as client
 
 ## **NOTE**
-  - All requests from components are made from lient side (Even in server based apps like nextjs)
-  - All requests inside `getInitialProps` will be made from server side
-  - Checking our curent environment (Server or client)
-  ```js
-  if(typeof window === 'undefined'){
-    // We ar eon server
-  }else {
-    // We are on Browser
-  }
-  ```
-  - `kubectl get namespace`  Fetch namespaces
-  - `kubectl get services -n <namespace>` Fetch services in that namespace
+
+- All requests from components are made from lient side (Even in server based apps like nextjs)
+- All requests inside `getInitialProps` will be made from server side
+- Checking our curent environment (Server or client)
+
+```js
+if (typeof window === 'undefined') {
+  // We ar eon server
+} else {
+  // We are on Browser
+}
+```
+
+- `kubectl get namespace` Fetch namespaces
+- `kubectl get services -n <namespace>` Fetch services in that namespace
 
 ## Actions causing execution of getInitialProps
 
@@ -81,7 +87,7 @@ ComponentName.getInitialProps = async () => {}
   - CLick on links redirecting on ifferent domain
   - Typing address on Address bar
   - Hard refresh
-- Client side  (Console log statements will be on Client logs)
+- Client side (Console log statements will be on Client logs)
   - Rediect via routing
 
 ## App COmponent and Page Component Difference
@@ -93,10 +99,9 @@ ComponentName.getInitialProps = async () => {}
 
 ### Page Component
 
-- `componentname.js`  File name
+- `componentname.js` File name
 - `PageComponent.getInitialProps` have arguments as `{req, res}`
 
 ## Communication with service on different namespace
 
 - http://service-name.namespace.svc.cluster.local
-
