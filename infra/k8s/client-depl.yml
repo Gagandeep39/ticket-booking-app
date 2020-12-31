@@ -20,7 +20,7 @@ spec:
               memory: '300Mi'
               cpu: '300m'
           env:
-            - name: INGRESS_URI
+            - name: NEXT_PUBLIC_INGRESS_URI
               value: ingress-nginx-controller.ingress-nginx.svc.cluster.local
 
 ---
