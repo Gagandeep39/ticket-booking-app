@@ -15,7 +15,7 @@ spec:
     - host: localhost # Can be anything gagan.lol, abc.xyz etc.
       http:
         paths:
-            # Auth Route
+          # Auth Route
           - path: /api/users/?(.*)
             backend:
               serviceName: auth-srv
@@ -29,6 +29,11 @@ spec:
           - path: /api/orders/?(.*)
             backend:
               serviceName: orders-srv
+              servicePort: 3000
+            # Payment Route
+          - path: /api/payments/?(.*)
+            backend:
+              serviceName: payments-srv
               servicePort: 3000
             # Frotnend client Route
           - path: /?(.*)
