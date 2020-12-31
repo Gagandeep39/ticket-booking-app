@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 
 /**
- * 
+ *
  * @param url Url to make a request to
  * @param method GET, POST etc.
  * @param body Data to be sent
@@ -32,9 +32,9 @@ function useRequest({ url, method, body, onSuccess }) {
       })
       .catch((error) =>
         setErrors(
-          <div className='alert alert-danger'>
+          <div className="alert alert-danger">
             <h4>Oooops...</h4>
-            <ul className='my-0'>
+            <ul className="my-0">
               {error.response.data.errors.map((err) => (
                 <li key={err.message}>{err.message}</li>
               ))}
@@ -50,7 +50,6 @@ useRequest.propTypes = {
   url: PropTypes.string.isRequired,
   method: PropTypes.string.isRequired,
   body: PropTypes.object.isRequired,
-  onSuccess: PropTypes.func.isRequired,
 };
 
 export default useRequest;
