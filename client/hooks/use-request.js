@@ -23,8 +23,8 @@ import axios from 'axios';
  */
 function useRequest({ url, method, body, onSuccess }) {
   const [errors, setErrors] = useState(null);
-  const doRequest = () => {
-    axios[method](url, body)
+  const doRequest = (props) => {
+    axios[method](url, { ...body, ...props })
       .then((response) => {
         // Will be called if user provides a callback and there is o error in making request
         if (onSuccess) onSuccess(response.data);
