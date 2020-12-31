@@ -14,12 +14,12 @@ const buildClient = ({ req }) => {
   if (typeof window === 'undefined') {
     // We are on server
     return axios.create({
-      baseURL: `http://${process.env.INGRESS_URI}`,
+      baseURL: `http://${process.env.NEXT_PUBLIC_INGRESS_URI}`,
       headers: req.headers,
     });
   } else {
     return axios.create({
-      baseURL: '',
+      baseURL: '/',
     });
   }
 };
