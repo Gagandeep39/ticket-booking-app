@@ -12,8 +12,8 @@ import Header from '../components/header';
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
-      <Header />
-      <Component {...pageProps} />
+      <Header currentUser={currentUser} />
+      <Component currentUser={currentUser} {...pageProps} />
     </div>
   );
 };
@@ -23,13 +23,16 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
  * getInitialProps can be removed from Landing page
  */
 AppComponent.getInitialProps = async (appContext) => {
-  const { data } = await buildClient(appContext.ctx).get(
-    '/api/users/currentuser'
-  );
+  const client = buildClient(appContext.ctx);
+  const { data } = await client.get('/api/users/currentuser');
   // Fetch Page props
   let pageProps = {};
   if (appContext.Component.getInitialProps) {
-    pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+    pageProps = await appContext.Component.getInitialProps(
+      appContext.ctx,
+      client,
+      data.currentUser
+    );
   }
   return {
     pageProps,
