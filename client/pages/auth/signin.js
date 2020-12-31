@@ -27,31 +27,31 @@ export default function signin() {
 
   return (
     <form onSubmit={onSubmit}>
-      <h1>Sign Up</h1>
-      <div className='form-group'>
+      <h1>Sign In</h1>
+      <div className="form-group">
         <label>Email Address</label>
         <input
-          type='text'
+          type="text"
           required
-          className='form-control'
-          name='email'
+          className="form-control"
+          name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      <div className='form-group'>
+      <div className="form-group">
         <label>Password</label>
         <input
-          type='password'
-          className='form-control'
-          name='password'
+          type="password"
+          className="form-control"
+          name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
       {errors}
 
-      <button className='btn btn-primary'>Sign Ip</button>
+      <button className="btn btn-primary">Sign In</button>
     </form>
   );
 }
