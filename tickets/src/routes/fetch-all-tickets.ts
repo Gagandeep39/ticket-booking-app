@@ -14,7 +14,9 @@ router.get(
   '/api/tickets',
   requireAuth,
   (req: Request, res: Response, next: NextFunction) => {
-    Ticket.find({})
+    Ticket.find({
+      orderId: undefined,
+    })
       .then((tickets) => res.send(tickets))
       .catch((error) => next(error));
   }
